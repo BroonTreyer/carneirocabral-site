@@ -13,6 +13,30 @@ export const SITE = {
   instagram: '',
 };
 
+// Números informados pelo escritório (10/11/2026). Apresentados de forma neutra, sem falar em êxito ou vitórias,
+// porque a divulgação de resultados é vedada pela OAB (Provimento 205/2021).
+export const NUMEROS = [
+  { valor: 25000, prefixo: '+', rotulo: 'processos acompanhados' },
+  { valor: 2000, prefixo: '+', rotulo: 'clientes atendidos' },
+  { valor: 11, prefixo: '', rotulo: 'advogados na equipe' },
+  { valor: 3, prefixo: '', rotulo: 'capitais do Centro-Oeste' },
+];
+
+// EQUIPE — preencher com dados e fotos REAIS. O carrossel só aparece quando houver pessoas aqui.
+// foto: arquivo em src/assets/equipe/ (ex.: 'nome-sobrenome.jpg'), padronizado com scripts/padronizar-equipe.mjs.
+export type Pessoa = { nome: string; cargo: string; oab: string; foto: string; cidade?: string };
+export const EQUIPE: Pessoa[] = [];
+
+// Créditos das fotografias (licenças abertas exigem atribuição). Aparecem na página /creditos/.
+export const CREDITOS = [
+  { foto: 'Estátua da Justiça na Maison du Renard, Bruxelas (recorte)', autor: 'iMahesh', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Maison_du_Renard_(Brussels)_-_Detail_of_the_statue_of_Lady_Justice_(Justicia).jpg' },
+  { foto: 'Supremo Tribunal Federal e a escultura A Justiça, Brasília', autor: 'Leandro Ciuffo', licenca: 'CC BY 2.0', link: 'https://commons.wikimedia.org/wiki/File:Supremo_Brasil.jpg' },
+  { foto: 'A Justiça, de Alfredo Ceschiatti, diante do STF', autor: 'Dasfour2022', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Supreme_Federal_Court_-_Statue.jpg' },
+  { foto: 'Praça Cívica, Goiânia', autor: 'Boaventuravinicius', licenca: 'CC BY-SA 3.0', link: 'https://commons.wikimedia.org/wiki/File:Pra%C3%A7a_C%C3%ADvica_em_Outubro_de_2026.jpg' },
+  { foto: 'Vista aérea do centro de Cuiabá', autor: 'Fabio Gomes', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Vista_a%C3%A9rea_de_Cuiab%C3%A1_-_%C3%A1rea_central.jpg' },
+  { foto: 'Colheita de soja em Rondonópolis (MT)', autor: 'Roosevelt Pinheiro/Agência Brasil', licenca: 'CC BY 3.0 BR', link: 'https://commons.wikimedia.org/wiki/File:Ronodon%C3%B3polis_colheita_soja_(Roosevelt_Pinheiro)_28mar09.jpg' },
+];
+
 export type Telefone = { exibicao: string; e164: string; whatsapp: string };
 
 export const TELEFONES: Record<'brasilia' | 'cuiaba', Telefone> = {
@@ -31,6 +55,8 @@ export type Cidade = {
   endereco: string; // preencher quando houver endereço para divulgar
   texto: string[];
   tribunais: string[];
+  foto: string;
+  legenda: string;
 };
 
 export const CIDADES: Cidade[] = [
@@ -44,10 +70,12 @@ export const CIDADES: Cidade[] = [
     lon: -49.2648,
     endereco: '',
     texto: [
-      'Em Goiânia, atendemos pessoas e empresas de todo o estado de Goiás, com reuniões presenciais agendadas e acompanhamento a distância quando for mais prático para o cliente.',
-      'Atuamos em processos que tramitam na Justiça estadual e na Justiça Federal em Goiás, além de demandas administrativas e consultivas.',
+      'Em Goiânia, atendemos pessoas, empresas e produtores de todo o estado de Goiás, da capital ao sudoeste agrícola, com reuniões presenciais agendadas e acompanhamento a distância quando for mais prático para o cliente.',
+      'Acompanhamos processos na Justiça estadual, na Justiça Federal e na Justiça do Trabalho em Goiás, além do trabalho consultivo, que resolve muitos problemas antes que cheguem ao Judiciário.',
     ],
     tribunais: ['Tribunal de Justiça de Goiás (TJGO)', 'Justiça Federal em Goiás (TRF1)', 'Tribunal Regional do Trabalho da 18ª Região'],
+    foto: 'goiania-praca-civica',
+    legenda: 'Praça Cívica, Goiânia',
   },
   {
     slug: 'cuiaba',
@@ -59,10 +87,12 @@ export const CIDADES: Cidade[] = [
     lon: -56.0974,
     endereco: '',
     texto: [
-      'Em Cuiabá, atendemos clientes de todo o Mato Grosso, da capital ao interior, com reuniões presenciais agendadas e atendimento por videochamada para quem está longe.',
-      'Acompanhamos processos na Justiça estadual e na Justiça Federal em Mato Grosso, incluindo os Juizados Especiais.',
+      'Em Cuiabá, atendemos clientes de todo o Mato Grosso. Num estado em que a próxima comarca pode estar a centenas de quilômetros, o processo eletrônico e a videochamada encurtam a distância sem diminuir o cuidado.',
+      'Acompanhamos processos na Justiça estadual, inclusive nos Juizados Especiais, na Justiça Federal e na Justiça do Trabalho em Mato Grosso, com atenção especial às questões do campo e do agronegócio.',
     ],
     tribunais: ['Tribunal de Justiça de Mato Grosso (TJMT)', 'Justiça Federal em Mato Grosso (TRF1)', 'Tribunal Regional do Trabalho da 23ª Região'],
+    foto: 'cuiaba-centro',
+    legenda: 'Centro de Cuiabá',
   },
   {
     slug: 'brasilia',
@@ -74,10 +104,12 @@ export const CIDADES: Cidade[] = [
     lon: -47.8828,
     endereco: '',
     texto: [
-      'Em Brasília, atendemos clientes do Distrito Federal e do Entorno, e acompanhamos de perto os processos que chegam aos tribunais superiores.',
-      'A presença na capital federal facilita o contato direto com tribunais, órgãos públicos e repartições da administração federal.',
+      'Em Brasília, atendemos clientes do Distrito Federal e do Entorno e acompanhamos de perto os processos que sobem de Goiás e de Mato Grosso aos tribunais superiores.',
+      'Recurso em tribunal superior pede presença: entrega de memoriais, despachos, sustentações orais e acompanhamento diário das pautas. Estar na capital federal permite fazer isso sem intermediários, além de facilitar o contato com órgãos da administração federal.',
     ],
-    tribunais: ['Tribunal de Justiça do DF e Territórios (TJDFT)', 'Tribunal Regional Federal da 1ª Região (TRF1)', 'Superior Tribunal de Justiça (STJ) e Supremo Tribunal Federal (STF)'],
+    tribunais: ['Tribunal de Justiça do DF e Territórios (TJDFT)', 'Tribunal Regional Federal da 1ª Região (TRF1)', 'Superior Tribunal de Justiça (STJ)', 'Supremo Tribunal Federal (STF)', 'Tribunal Superior do Trabalho (TST)'],
+    foto: 'brasilia-stf',
+    legenda: 'Supremo Tribunal Federal, Brasília',
   },
 ];
 
@@ -103,6 +135,7 @@ export const AREAS: Area[] = [
     intro: [
       'Boa parte dos conflitos começa em um contrato mal redigido, em um acordo feito só de palavra ou em um prejuízo que ninguém quer assumir. O Direito Civil cuida dessas relações entre pessoas e empresas no dia a dia.',
       'Atuamos tanto na prevenção, redigindo e revisando contratos antes da assinatura, quanto na solução de conflitos já instalados, buscando primeiro o acordo e, quando necessário, a via judicial.',
+      'Contrato bom é aquele que ninguém precisa abrir na gaveta depois de assinado. Quando o conflito já existe, a pergunta passa a ser outra: quanto custa resolver, quanto tempo leva e o que se ganha com isso. Respondemos as três antes de qualquer passo.',
     ],
     servicos: [
       'Elaboração e revisão de contratos de compra e venda, locação, prestação de serviços e parcerias',
@@ -115,6 +148,7 @@ export const AREAS: Area[] = [
     perguntas: [
       { p: 'Vale a pena revisar um contrato antes de assinar?', r: 'Sim. A revisão prévia costuma custar menos do que resolver depois um problema causado por uma cláusula mal escrita, e permite negociar ajustes enquanto ainda há margem para isso.' },
       { p: 'Qual é o prazo para cobrar uma dívida na Justiça?', r: 'Depende do tipo de dívida e do documento que a comprova. Em regra, os prazos variam de três a cinco anos, por isso é importante buscar orientação o quanto antes.' },
+      { p: 'Contrato de boca tem validade?', r: 'Em muitos casos, sim. O problema é provar o que foi combinado. Mensagens, comprovantes de pagamento e testemunhas ajudam, e uma análise do conjunto indica se vale a pena cobrar na Justiça.' },
     ],
   },
   {
@@ -126,6 +160,7 @@ export const AREAS: Area[] = [
     intro: [
       'Voo cancelado, cobrança que você não reconhece, nome negativado sem motivo, plano de saúde que negou um procedimento: situações assim são comuns e o Código de Defesa do Consumidor oferece instrumentos claros para resolvê-las.',
       'Analisamos o caso, reunimos as provas e indicamos o caminho mais adequado, seja a reclamação administrativa, o acordo com a empresa ou a ação judicial, inclusive nos Juizados Especiais.',
+      'Muita gente desiste porque acha que brigar com uma grande empresa não compensa. Na prática, o Código de Defesa do Consumidor inverte esse jogo em vários pontos: em muitos casos, cabe à empresa provar que agiu corretamente, e não ao consumidor provar que foi prejudicado.',
     ],
     servicos: [
       'Atrasos, cancelamentos e extravio de bagagem em viagens aéreas',
@@ -138,6 +173,7 @@ export const AREAS: Area[] = [
     perguntas: [
       { p: 'Que provas devo guardar?', r: 'Guarde tudo: comprovantes de compra, bilhetes, protocolos de atendimento, e-mails, mensagens e prints de tela. Quanto mais completo o registro, mais sólido fica o caso.' },
       { p: 'Preciso ir até a empresa antes de procurar um advogado?', r: 'Não é obrigatório, mas registrar a reclamação e anotar o número de protocolo ajuda a demonstrar que você tentou resolver o problema diretamente.' },
+      { p: 'Quanto tempo depois do problema ainda posso reclamar?', r: 'Depende do caso. Defeitos de produto e de serviço têm prazos de 30 a 90 dias para reclamação, e o pedido de indenização pode ser feito, em regra, em até cinco anos. Quanto antes, mais fácil reunir as provas.' },
     ],
   },
   {
@@ -149,6 +185,7 @@ export const AREAS: Area[] = [
     intro: [
       'Empresas tomam decisões jurídicas todos os dias, muitas vezes sem perceber: ao contratar um fornecedor, admitir um sócio, assinar um contrato com cliente ou cobrar um pagamento atrasado.',
       'Oferecemos assessoria contínua ou pontual para que essas decisões sejam tomadas com segurança, reduzindo riscos e evitando que pequenos problemas se transformem em processos.',
+      'O empresário do Centro-Oeste raramente tem tempo para pensar em contrato social, cláusula de saída ou garantia de recebimento. É justamente por isso que esses pontos viram problema. Nosso papel é cuidar dessa parte com a mesma objetividade com que você cuida do caixa.',
     ],
     servicos: [
       'Constituição, alteração e encerramento de sociedades',
@@ -161,6 +198,7 @@ export const AREAS: Area[] = [
     perguntas: [
       { p: 'Minha empresa precisa de um acordo de sócios?', r: 'Se há mais de um sócio, o acordo é altamente recomendável. Ele define regras para decisões, saída de sócios, divisão de resultados e situações de conflito, evitando disputas futuras.' },
       { p: 'Vocês oferecem assessoria mensal?', r: 'Sim. Além do atendimento por demanda, é possível contratar uma assessoria contínua, com escopo e honorários definidos por escrito conforme as necessidades da empresa.' },
+      { p: 'O que fazer quando um cliente da empresa não paga?', r: 'Primeiro, reunir notas, contratos, pedidos e conversas. Com esse material, avaliamos a via mais rápida: notificação, protesto do título, acordo ou ação de cobrança ou execução.' },
     ],
   },
   {
@@ -172,6 +210,7 @@ export const AREAS: Area[] = [
     intro: [
       'A relação de trabalho envolve direitos e deveres dos dois lados. Uma rescisão feita sem cuidado, horas extras não registradas ou um afastamento mal conduzido podem gerar conflitos longos e caros.',
       'Orientamos empregados que querem entender e reivindicar seus direitos e empresas que precisam cumprir a legislação e se defender em reclamações trabalhistas.',
+      'Na Justiça do Trabalho, a prova costuma estar nos detalhes: o cartão de ponto, a mensagem enviada fora do horário, o recibo que ninguém guardou. Por isso o trabalho começa com uma conferência minuciosa de documentos, tanto para o empregado quanto para a empresa.',
     ],
     servicos: [
       'Conferência de verbas rescisórias e cálculos trabalhistas',
@@ -184,6 +223,7 @@ export const AREAS: Area[] = [
     perguntas: [
       { p: 'Qual é o prazo para entrar com uma ação trabalhista?', r: 'O prazo é de até dois anos depois do fim do contrato de trabalho, e a ação pode cobrar direitos referentes aos últimos cinco anos.' },
       { p: 'A empresa pode ser orientada para evitar processos?', r: 'Sim. Uma revisão das rotinas de contratação, jornada e desligamento reduz bastante o risco de reclamações trabalhistas.' },
+      { p: 'Pedi demissão. Ainda tenho direitos a receber?', r: 'Sim. Quem pede demissão recebe saldo de salário, férias vencidas e proporcionais com um terço e décimo terceiro proporcional. Não há direito à multa do FGTS nem ao seguro-desemprego, mas vale conferir se os valores foram pagos corretamente.' },
     ],
   },
   {
@@ -195,6 +235,7 @@ export const AREAS: Area[] = [
     intro: [
       'Goiás e Mato Grosso estão entre os maiores produtores do país, e a atividade no campo depende de contratos, crédito, posse da terra e regularidade documental.',
       'Atendemos produtores, famílias e empresas do agronegócio em questões que vão da redação de um contrato de arrendamento à regularização de imóveis rurais e à solução de conflitos ligados à produção.',
+      'No campo, um contrato mal escrito pode travar uma safra inteira, e uma sucessão mal planejada pode dividir uma propriedade que levou gerações para ser formada. Tratamos essas questões com o cuidado de quem sabe o que está em jogo em cada hectare.',
     ],
     servicos: [
       'Contratos de arrendamento e parceria rural',
@@ -207,6 +248,7 @@ export const AREAS: Area[] = [
     perguntas: [
       { p: 'Arrendamento e parceria rural são a mesma coisa?', r: 'Não. No arrendamento, o proprietário recebe um valor fixo pelo uso da terra. Na parceria, os riscos e os resultados da produção são divididos entre as partes, conforme o contrato.' },
       { p: 'Vocês atendem propriedades no interior?', r: 'Sim. Atendemos clientes de todo o interior de Goiás e de Mato Grosso, com reuniões presenciais agendadas ou por videochamada.' },
+      { p: 'Como planejar a sucessão da propriedade rural?', r: 'O planejamento pode envolver testamento, doação com reserva de usufruto, acordos entre herdeiros e, em alguns casos, a constituição de uma empresa familiar. A melhor combinação depende do tamanho do patrimônio, da família e da atividade.' },
     ],
   },
   {
@@ -218,6 +260,7 @@ export const AREAS: Area[] = [
     intro: [
       'Questões de família pedem conhecimento técnico e, ao mesmo tempo, sensibilidade. Divórcio, guarda dos filhos e inventário mexem com a vida das pessoas em momentos delicados.',
       'Sempre que possível, priorizamos soluções consensuais, que costumam ser mais rápidas e menos desgastantes para todos, sem abrir mão da defesa firme dos interesses do cliente quando o acordo não é possível.',
+      'Nesses casos, a técnica jurídica é só metade do trabalho. A outra metade é conduzir conversas difíceis com calma e discrição, proteger os filhos do conflito entre os adultos e encontrar soluções que permitam a cada um seguir em frente.',
     ],
     servicos: [
       'Divórcio consensual e litigioso, inclusive em cartório',
@@ -230,33 +273,22 @@ export const AREAS: Area[] = [
     perguntas: [
       { p: 'É possível fazer o divórcio em cartório?', r: 'Sim, quando há acordo entre o casal sobre todos os pontos. Mesmo havendo filhos menores, a via extrajudicial pode ser possível se as questões relativas a eles já tiverem sido resolvidas na Justiça.' },
       { p: 'Existe prazo para abrir o inventário?', r: 'A lei prevê a abertura em até dois meses após o falecimento. O atraso pode gerar multa sobre o imposto de transmissão, conforme a legislação de cada estado.' },
+      { p: 'Como é calculada a pensão alimentícia?', r: 'Não existe percentual fixo na lei. O valor considera a necessidade de quem recebe e a possibilidade de quem paga, analisadas caso a caso. É possível pedir revisão quando a situação de uma das partes muda.' },
     ],
   },
 ];
 
 export const PILARES = [
-  { titulo: 'Clareza', texto: 'Explicamos cada etapa em linguagem simples, com prazos, riscos e custos colocados por escrito antes de qualquer decisão.' },
-  { titulo: 'Sigilo', texto: 'Tudo o que você nos conta é protegido pelo sigilo profissional e tratado conforme a Lei Geral de Proteção de Dados.' },
-  { titulo: 'Proximidade', texto: 'Você fala diretamente com quem cuida do seu caso, presencialmente ou a distância, sem intermediários.' },
+  { titulo: 'Clareza', texto: 'Você sai de cada conversa sabendo o que vai ser feito, quanto tempo deve levar, quanto custa e quais são os riscos. Tudo por escrito.' },
+  { titulo: 'Sigilo', texto: 'O que você nos conta fica entre você e o escritório. É dever profissional do advogado, e tratamos esse dever como regra da casa.' },
+  { titulo: 'Presença', texto: 'Quem cuida do seu caso atende o seu contato. Sem central de atendimento e sem precisar repetir a história a cada ligação.' },
 ];
 
 export const ETAPAS = [
-  {
-    titulo: 'Primeiro contato',
-    texto: 'Você nos procura por WhatsApp, telefone ou e-mail e conta, em poucas palavras, o que está acontecendo.',
-  },
-  {
-    titulo: 'Análise do caso',
-    texto: 'Marcamos uma conversa, presencial ou por vídeo, e examinamos os documentos para entender a situação por inteiro.',
-  },
-  {
-    titulo: 'Proposta e estratégia',
-    texto: 'Explicamos os caminhos possíveis, os riscos de cada um e apresentamos a proposta de honorários por escrito.',
-  },
-  {
-    titulo: 'Acompanhamento',
-    texto: 'Durante todo o trabalho, você recebe notícias de cada andamento importante, sem precisar perguntar.',
-  },
+  { titulo: 'Primeira conversa', texto: 'Você conta o que aconteceu, pelo WhatsApp, por telefone ou pessoalmente. Já nesse contato dizemos se o caso é da nossa área e quais documentos separar.' },
+  { titulo: 'Estudo do caso', texto: 'Lemos os documentos, verificamos prazos e decisões recentes dos tribunais e respondemos à pergunta que importa: vale a pena seguir, e por qual caminho?' },
+  { titulo: 'Proposta por escrito', texto: 'Você recebe a estratégia, os riscos e os honorários em um documento claro, antes de assinar qualquer coisa. Sem letras miúdas.' },
+  { titulo: 'Acompanhamento', texto: 'Cada andamento relevante é comunicado e explicado em linguagem simples. Você não precisa ligar para saber como está o seu processo.' },
 ];
 
 export const PERGUNTAS = [

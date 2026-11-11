@@ -1,0 +1,32 @@
+---
+import { NUMEROS } from '../data/site';
+const fmt = (n: number) => n.toLocaleString('pt-BR');
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<dl class={`numeros ${cls}`}>
+  {NUMEROS.map((n) => (
+    <div class="numeros__item">
+      <dt class="numeros__rotulo">{n.rotulo}</dt>
+      <dd class="numeros__valor"><span aria-hidden="true">{n.prefixo}</span><span data-contar={n.valor}>{fmt(n.valor)}</span><span class="sr">{n.prefixo ? 'mais de ' : ''}{fmt(n.valor)}</span></dd>
+    </div>
+  ))}
+</dl>
+<script>
+  import { gsap } from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    gsap.registerPlugin(ScrollTrigger);
+    document.querySelectorAll<HTMLElement>('[data-contar]').forEach((el) => {
+      const alvo = Number(el.dataset.contar);
+      el.setAttribute('aria-hidden', 'true');
+      const obj = { v: 0 };
+      el.textContent = '0';
+      gsap.to(obj, {
+        v: alvo, duration: alvo > 100 ? 2.4 : 1.4, ease: 'power2.out',
+        scrollTrigger: { trigger: el, start: 'top 95%', once: true },
+        onUpdate: () => { el.textContent = Math.round(obj.v).toLocaleString('pt-BR'); },
+      });
+    });
+  }
+</script>

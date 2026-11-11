@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# graft's local graph cache — regenerable, not committed (run `graft build`).
+/graft/
+
+# originais grandes de fotos (as versões usadas ficam em src/assets)
+origem/

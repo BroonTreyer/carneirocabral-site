@@ -25,7 +25,9 @@
     "tailwindcss": "^4.3.5"
   },
   "devDependencies": {
+    "@imgly/background-removal-node": "^1.4.5",
     "opentype.js": "^2.0.0",
-    "playwright-core": "^1.65.0"
+    "playwright-core": "^1.65.0",
+    "sharp": "^0.35.5"
   }
 }

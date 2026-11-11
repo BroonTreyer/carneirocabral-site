@@ -1,52 +1,74 @@
 ---
+import { Image, Picture } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import Monograma from '../components/Monograma.astro';
 import Mapa from '../components/Mapa.astro';
 import Contato from '../components/Contato.astro';
 import Icone from '../components/Icone.astro';
-import { AREAS, ETAPAS, PERGUNTAS, CIDADES, PILARES } from '../data/site';
+import Numeros from '../components/Numeros.astro';
+import Equipe from '../components/Equipe.astro';
+import { AREAS, ETAPAS, PERGUNTAS, CIDADES, PILARES, TELEFONES } from '../data/site';
+import { foto } from '../data/fotos';
 
 const faq = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
   mainEntity: PERGUNTAS.map((q) => ({ '@type': 'Question', name: q.p, acceptedAnswer: { '@type': 'Answer', text: q.r } })),
 };
+const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um atendimento.');
 ---
 <Base
   titulo="Carneiro Cabral Advogados Associados | Goiânia, Cuiabá e Brasília"
-  descricao="Escritório de advocacia com atendimento em Goiânia, Cuiabá e Brasília. Direito Civil, Consumidor, Empresarial, Trabalhista, Agrário e Família. Agende pelo WhatsApp."
+  descricao="Escritório com mais de 25 mil processos acompanhados e 11 advogados em Goiânia, Cuiabá e Brasília. Civil, Consumidor, Empresarial, Trabalho, Agro e Família."
   schema={[faq]}
 >
-  <!-- A recepção: abertura do site, desenhada a partir da recepção do escritório -->
-  <section class="recepcao" aria-labelledby="titulo-principal">
-    <div class="recepcao__marinho" aria-hidden="true"></div>
-    <div class="recepcao__parede">
-      <span class="recepcao__led" aria-hidden="true"></span>
-      <div class="recepcao__placa">
-        <Monograma id="mono-hero" class="recepcao__mono" titulo="" brilho />
-        <h1 id="titulo-principal" class="recepcao__nome">Carneiro Cabral <span class="recepcao__sub">Advogados Associados</span></h1>
-        <p class="recepcao__frase">Atendimento jurídico a pessoas e empresas em Goiânia, Cuiabá e Brasília.</p>
+  <!-- Abertura: a Justiça em pedra e ouro sobre o azul do escritório -->
+  <section class="abertura" aria-labelledby="titulo-principal">
+    <div class="abertura__fundo" aria-hidden="true">
+      <Monograma id="mono-marca-dagua" class="abertura__marca-dagua" titulo="" />
+      <span class="abertura__luz"></span>
+    </div>
+    <div class="abertura__grade conteiner">
+      <figure class="abertura__estatua">
+        <Picture src={foto('temis')} formats={['avif', 'webp']} widths={[420, 640, 893]} sizes="(max-width: 860px) 60vw, 34vw" alt="Estátua da Justiça, de olhos vendados, segurando a espada e a balança douradas" loading="eager" fetchpriority="high" class="abertura__img" />
+      </figure>
+      <div class="abertura__texto">
+        <p class="abertura__marca">Carneiro Cabral <span>Advogados Associados</span></p>
+        <h1 id="titulo-principal" class="abertura__titulo">Do campo aos tribunais superiores.</h1>
+        <p class="abertura__lead">Somos um escritório do Centro-Oeste. Defendemos pessoas, empresas e produtores rurais a partir de Goiânia, Cuiabá e Brasília, com uma equipe de 11 advogados e um compromisso simples: estudar cada caso a fundo e explicar tudo com clareza.</p>
+        <div class="abertura__acoes">
+          <a class="botao botao--ouro" href="#contato">Agendar atendimento</a>
+          <a class="botao botao--contorno" href={`https://wa.me/${TELEFONES.brasilia.whatsapp}?text=${msg}`} target="_blank" rel="noopener"><Icone nome="whatsapp" class="botao__icone" />Falar pelo WhatsApp</a>
+        </div>
       </div>
     </div>
-    <div class="recepcao__ripas" aria-hidden="true"></div>
-    <div class="recepcao__balcao">
-      <div class="recepcao__acoes">
-        <a class="botao botao--ouro" href="#contato">Agendar atendimento</a>
-        <a class="botao botao--contorno" href="#atuacao">Conhecer as áreas de atuação</a>
-      </div>
+    <div class="abertura__base">
+      <div class="conteiner"><Numeros /></div>
     </div>
   </section>
 
+  <!-- O escritório -->
   <section id="escritorio" class="secao secao--pedra" aria-labelledby="escritorio-titulo">
-    <div class="conteiner">
-      <div class="escritorio">
-        <h2 id="escritorio-titulo" class="titulo" data-revelar>Um escritório, três capitais</h2>
-        <div class="escritorio__texto">
-          <p class="paragrafo paragrafo--destaque" data-revelar>O Carneiro Cabral Advogados Associados atende pessoas e empresas no Centro-Oeste a partir de Goiânia, Cuiabá e Brasília.</p>
-          <p class="paragrafo" data-revelar>Cada caso começa com uma conversa franca: entendemos a situação, examinamos os documentos e explicamos com clareza os caminhos possíveis, os prazos e os riscos envolvidos. Nenhuma decisão é tomada sem que o cliente saiba exatamente o que está sendo feito e por quê.</p>
-          <p class="paragrafo" data-revelar>Com o processo eletrônico e o atendimento por videochamada, acompanhamos casos também fora das três capitais, sem perder a proximidade de um escritório que conhece a realidade da região.</p>
-        </div>
+    <div class="conteiner manifesto">
+      <div class="manifesto__texto">
+        <h2 id="escritorio-titulo" class="titulo" data-revelar>Por trás de cada número de processo, há alguém esperando uma resposta.</h2>
+        <p class="paragrafo paragrafo--destaque" data-revelar>Uma família à espera de um inventário. Uma empresa que precisa continuar funcionando. Uma safra que não pode parar por causa de um contrato mal resolvido.</p>
+        <p class="paragrafo" data-revelar>O Carneiro Cabral nasceu no Centro-Oeste e cresceu atendendo gente do Centro-Oeste. Conhecemos os tribunais, os cartórios, as distâncias e o ritmo da região, e sabemos que, para quem nos procura, o problema é sempre urgente.</p>
+        <p class="paragrafo" data-revelar>Mais de 25 mil processos depois, o método continua o mesmo do primeiro dia: ler tudo, explicar tudo e decidir junto com o cliente.</p>
       </div>
+      <figure class="painel-recepcao" data-revelar aria-hidden="true">
+        <div class="painel-recepcao__marinho"></div>
+        <div class="painel-recepcao__parede">
+          <span class="painel-recepcao__led"></span>
+          <Monograma id="mono-painel" class="painel-recepcao__mono" titulo="" />
+          <span class="painel-recepcao__nome">Carneiro Cabral</span>
+          <span class="painel-recepcao__sub">Advogados Associados</span>
+        </div>
+        <div class="painel-recepcao__ripas"></div>
+        <div class="painel-recepcao__balcao"></div>
+      </figure>
+    </div>
+    <div class="conteiner">
       <div class="pilares">
         {PILARES.map((p) => (
           <div class="pilar" data-revelar>
@@ -58,10 +80,13 @@ const faq = {
     </div>
   </section>
 
+  <!-- Áreas -->
   <section id="atuacao" class="secao secao--marinho" aria-labelledby="atuacao-titulo">
     <div class="conteiner">
-      <h2 id="atuacao-titulo" class="titulo titulo--claro" data-revelar>Áreas de atuação</h2>
-      <p class="paragrafo paragrafo--claro secao__intro" data-revelar>Atuamos de forma consultiva, para evitar conflitos, e contenciosa, quando é preciso defender seus direitos na Justiça.</p>
+      <div class="cabeca-secao">
+        <h2 id="atuacao-titulo" class="titulo titulo--claro" data-revelar>Áreas de atuação</h2>
+        <p class="paragrafo paragrafo--claro" data-revelar>Atuamos de forma consultiva, para evitar o conflito, e contenciosa, quando é preciso defender seus direitos na Justiça. Escolha uma área para ver como podemos ajudar.</p>
+      </div>
       <ul class="areas-grade">
         {AREAS.map((a) => (
           <li class="area-card" data-revelar>
@@ -77,9 +102,38 @@ const faq = {
     </div>
   </section>
 
+  <!-- Campo -->
+  <section class="lavoura" aria-labelledby="lavoura-titulo">
+    <div class="lavoura__foto">
+      <Image src={foto('agro-colheita-soja')} widths={[640, 1024, 1600]} sizes="(max-width: 860px) 100vw, 55vw" alt="Colheitadeira trabalhando em lavoura de soja em Mato Grosso" class="lavoura__img" />
+    </div>
+    <div class="lavoura__texto">
+      <h2 id="lavoura-titulo" class="titulo" data-revelar>Advocacia para quem produz.</h2>
+      <p class="paragrafo paragrafo--destaque" data-revelar>Goiás e Mato Grosso estão entre os maiores produtores de grãos do país. Boa parte dos nossos clientes vive do campo ou trabalha para quem vive dele.</p>
+      <p class="paragrafo" data-revelar>Contratos de arrendamento e parceria, compra e venda de safra, crédito rural, regularização de áreas e sucessão da propriedade familiar: são questões que pedem conhecimento técnico e a compreensão de como a atividade funciona na prática, do plantio à entrega.</p>
+      <a class="botao botao--marinho" href="/atuacao/direito-agrario-e-agronegocio/" data-revelar>Conhecer a atuação no agronegócio</a>
+    </div>
+  </section>
+
+  <!-- Brasília -->
+  <section class="destaque" aria-labelledby="destaque-titulo">
+    <Image src={foto('stf-a-justica')} widths={[800, 1280, 2000]} sizes="100vw" alt="Escultura A Justiça, de Alfredo Ceschiatti, diante do Supremo Tribunal Federal, iluminada à noite" class="destaque__img" />
+    <div class="destaque__veu" aria-hidden="true"></div>
+    <div class="conteiner destaque__conteudo">
+      <h2 id="destaque-titulo" class="destaque__titulo" data-revelar>Quando o processo chega a Brasília, nós já estamos lá.</h2>
+      <p class="destaque__texto" data-revelar>Recurso em tribunal superior pede presença: entrega de memoriais, despachos e sustentações orais. Do nosso escritório na capital federal, acompanhamos de perto os processos que sobem de Goiás e de Mato Grosso ao STJ, ao TST e ao STF.</p>
+    </div>
+  </section>
+
+  <Equipe />
+
+  <!-- Método -->
   <section id="como-trabalhamos" class="secao secao--pedra" aria-labelledby="etapas-titulo">
     <div class="conteiner">
-      <h2 id="etapas-titulo" class="titulo" data-revelar>Como trabalhamos</h2>
+      <div class="cabeca-secao">
+        <h2 id="etapas-titulo" class="titulo" data-revelar>Como trabalhamos</h2>
+        <p class="paragrafo" data-revelar>Do primeiro contato ao fim do processo, você sabe em que etapa está e o que vem a seguir.</p>
+      </div>
       <ol class="etapas">
         {ETAPAS.map((e, i) => (
           <li class="etapa" data-revelar>
@@ -92,24 +146,30 @@ const faq = {
     </div>
   </section>
 
+  <!-- Cidades -->
   <section id="onde-estamos" class="secao secao--marinho" aria-labelledby="onde-titulo">
-    <div class="conteiner onde">
-      <div class="onde__texto">
-        <h2 id="onde-titulo" class="titulo titulo--claro" data-revelar>Onde estamos</h2>
-        <p class="paragrafo paragrafo--claro" data-revelar>Escritórios em três capitais do Centro-Oeste, com atendimento presencial agendado e por videochamada.</p>
-        <ul class="cidades">
-          {CIDADES.map((c) => (
-            <li class="cidade" data-revelar>
-              <a class="cidade__link" href={`/advogados-em-${c.slug}/`}>
-                <span class="cidade__nome">{c.nome}</span>
-                <span class="cidade__estado">{c.estado}</span>
-                <span class="cidade__tel">{c.telefone.exibicao}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
+    <div class="conteiner">
+      <div class="onde">
+        <div class="onde__texto">
+          <h2 id="onde-titulo" class="titulo titulo--claro" data-revelar>Três capitais, uma só equipe.</h2>
+          <p class="paragrafo paragrafo--claro" data-revelar>Os escritórios de Goiânia, Cuiabá e Brasília trabalham juntos. Um caso que começa em uma cidade pode contar com a equipe das outras duas sempre que for preciso.</p>
+        </div>
+        <Mapa />
       </div>
-      <Mapa />
+      <ul class="cidades-grade">
+        {CIDADES.map((c) => (
+          <li class="cidade-card" data-revelar>
+            <a class="cidade-card__link" href={`/advogados-em-${c.slug}/`}>
+              <Image src={foto(c.foto)} widths={[480, 720]} sizes="(max-width: 860px) 100vw, 33vw" alt={c.legenda} class="cidade-card__img" />
+              <span class="cidade-card__corpo">
+                <span class="cidade-card__nome">{c.nome}</span>
+                <span class="cidade-card__estado">{c.estado}</span>
+                <span class="cidade-card__tel">{c.telefone.exibicao}</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
@@ -133,22 +193,21 @@ const faq = {
 <script>
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!calmo) {
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     gsap.registerPlugin(ScrollTrigger);
-    const tl = gsap.timeline({ defaults: { ease: 'power2.out' }, delay: 0.15 });
-    tl.from('.recepcao__led', { scaleX: 0, opacity: 0, duration: 1.2, ease: 'power3.inOut' })
-      .from('.recepcao__parede', { '--luz': 0, duration: 1.4 }, '<0.3')
-      .from('.recepcao__mono', { opacity: 0, y: 14, duration: 1 }, '<0.2')
-      .from('.recepcao__nome', { opacity: 0, y: 10, duration: 0.9 }, '<0.35')
-      .from('.recepcao__frase', { opacity: 0, y: 10, duration: 0.8 }, '<0.2')
-      .from('.recepcao__acoes .botao', { opacity: 0, y: 8, duration: 0.6, stagger: 0.1 }, '<0.25');
-    const brilho = document.getElementById('mono-hero-brilho');
-    if (brilho) {
-      const p = { x: -1 };
-      tl.to(p, { x: 1, duration: 1.8, ease: 'power1.inOut', onUpdate: () => brilho.setAttribute('gradientTransform', `translate(${p.x} 0)`) }, '-=0.9');
-    }
-    // leve profundidade: a placa sobe um pouco mais devagar que a página
-    gsap.to('.recepcao__placa', { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.recepcao', start: 'top top', end: 'bottom top', scrub: true } });
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.1 });
+    tl.from('.abertura__luz', { opacity: 0, scale: 0.7, duration: 1.6 })
+      .from('.abertura__estatua', { opacity: 0, y: 60, duration: 1.5 }, '<0.1')
+      .from('.abertura__marca-dagua', { opacity: 0, duration: 2 }, '<')
+      .from('.abertura__marca', { opacity: 0, y: 14, duration: 0.8 }, '<0.5')
+      .from('.abertura__titulo', { opacity: 0, y: 24, duration: 1 }, '<0.15')
+      .from('.abertura__lead', { opacity: 0, y: 16, duration: 0.9 }, '<0.2')
+      .from('.abertura__acoes .botao', { opacity: 0, y: 10, duration: 0.7, stagger: 0.1 }, '<0.2')
+      .from('.abertura__base', { opacity: 0, duration: 0.8 }, '<0.2');
+    // profundidade ao rolar
+    gsap.to('.abertura__estatua', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.abertura', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.abertura__marca-dagua', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.abertura', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.fromTo('.destaque__img', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.destaque', start: 'top bottom', end: 'bottom top', scrub: true } });
+    gsap.fromTo('.lavoura__img', { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.lavoura', start: 'top bottom', end: 'center center', scrub: true } });
   }
 </script>

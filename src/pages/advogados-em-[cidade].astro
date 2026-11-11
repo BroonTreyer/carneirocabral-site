@@ -2,7 +2,9 @@
 import Base from '../layouts/Base.astro';
 import Contato from '../components/Contato.astro';
 import Icone from '../components/Icone.astro';
+import { Image } from 'astro:assets';
 import { AREAS, CIDADES, SITE, type Cidade } from '../data/site';
+import { foto } from '../data/fotos';
 
 export function getStaticPaths() {
   return CIDADES.map((c) => ({ params: { cidade: c.slug }, props: { cidade: c } }));
@@ -37,12 +39,14 @@ const schema = [
   descricao={`Escritório de advocacia em ${cidade.nome}, ${cidade.estado}. Direito Civil, Consumidor, Empresarial, Trabalhista, Agrário e Família. WhatsApp ${cidade.telefone.exibicao}.`}
   schema={schema}
 >
-  <header class="capa">
+  <header class="capa capa--foto">
+    <Image src={foto(cidade.foto)} widths={[800, 1400, 2000]} sizes="100vw" alt="" class="capa__fundo" loading="eager" />
     <div class="conteiner">
       <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / <a href="/#onde-estamos">Onde estamos</a> / {cidade.nome}</p></nav>
       <h1 class="capa__titulo">Advogados em {cidade.nome}</h1>
       <p class="capa__texto">{cidade.texto[0]}</p>
       <a class="botao botao--ouro" href={`https://wa.me/${cidade.telefone.whatsapp}?text=${msg}`} target="_blank" rel="noopener">Conversar pelo WhatsApp</a>
+      <p class="capa__legenda">Foto: {cidade.legenda}</p>
     </div>
   </header>
 

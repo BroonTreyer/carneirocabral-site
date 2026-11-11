@@ -1,0 +1,23 @@
+---
+import Base from '../layouts/Base.astro';
+import { CREDITOS } from '../data/site';
+---
+<Base titulo="Créditos das imagens | Carneiro Cabral Advogados" descricao="Autoria e licenças das fotografias usadas no site do Carneiro Cabral Advogados Associados, publicadas no Wikimedia Commons sob licenças abertas.">
+  <header class="capa">
+    <div class="conteiner">
+      <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / Créditos das imagens</p></nav>
+      <h1 class="capa__titulo">Créditos das imagens</h1>
+      <p class="capa__texto">As fotografias abaixo foram publicadas por seus autores sob licenças abertas e são usadas aqui com a devida atribuição.</p>
+    </div>
+  </header>
+  <section class="secao secao--pedra">
+    <div class="conteiner conteiner--estreito texto-legal">
+      <ul class="creditos">
+        {CREDITOS.map((c) => (
+          <li><strong>{c.foto}</strong><br />Autor: {c.autor}. Licença {c.licenca}. <a href={c.link} rel="noopener" target="_blank">Ver original no Wikimedia Commons</a>.</li>
+        ))}
+      </ul>
+      <p>As imagens podem ter sido recortadas, redimensionadas ou ajustadas em cor. As versões adaptadas de obras sob licença CC BY-SA são disponibilizadas sob a mesma licença.</p>
+    </div>
+  </section>
+</Base>

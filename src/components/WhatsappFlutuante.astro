@@ -41,7 +41,7 @@ const opcoes = [
   document.addEventListener('click', (e) => { if (raiz && !raiz.contains(e.target as Node)) definir(false); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') definir(false); });
   // aparece depois que a pessoa começa a rolar (na abertura os botões já estão no balcão)
-  const mostrar = () => raiz?.classList.toggle('zap--visivel', window.scrollY > 240 || !document.querySelector('.recepcao'));
+  const mostrar = () => raiz?.classList.toggle('zap--visivel', window.scrollY > 240 || !document.querySelector('.abertura'));
   mostrar();
   window.addEventListener('scroll', mostrar, { passive: true });
 </script>

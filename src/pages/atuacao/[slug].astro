@@ -2,13 +2,17 @@
 import Base from '../../layouts/Base.astro';
 import Contato from '../../components/Contato.astro';
 import Icone from '../../components/Icone.astro';
+import { Image } from 'astro:assets';
 import { AREAS, CIDADES, SITE, type Area } from '../../data/site';
+import { foto } from '../../data/fotos';
 
 export function getStaticPaths() {
   return AREAS.map((a) => ({ params: { slug: a.slug }, props: { area: a } }));
 }
 const { area } = Astro.props as { area: Area };
 const url = `${SITE.url}/atuacao/${area.slug}/`;
+const fotoCapa: Record<string, string> = { 'direito-agrario-e-agronegocio': 'agro-colheita-soja' };
+const capa = fotoCapa[area.slug];
 const outras = AREAS.filter((a) => a.slug !== area.slug);
 const schema = [
   {
@@ -32,7 +36,8 @@ const schema = [
 ];
 ---
 <Base titulo={`${area.titulo} | Carneiro Cabral Advogados`} descricao={area.descricao} schema={schema}>
-  <header class="capa">
+  <header class={capa ? "capa capa--foto" : "capa"}>
+    {capa && <Image src={foto(capa)} widths={[800, 1400, 2000]} sizes="100vw" alt="" class="capa__fundo" loading="eager" />}
     <div class="conteiner">
       <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / <a href="/#atuacao">Áreas de atuação</a> / {area.titulo}</p></nav>
       <Icone nome={area.icone} class="capa__icone" />
