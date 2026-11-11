@@ -10,11 +10,12 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "imagens": "node scripts/gerar-glifo.mjs && node scripts/gerar-imagens.mjs",
+    "imagens": "node scripts/gerar-glifo.mjs && node scripts/gerar-imagens.mjs && node scripts/gerar-og-artigos.mjs",
     "testar": "node scripts/testar.mjs",
     "mapa": "node scripts/gerar-mapa.mjs"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
     "@fontsource-variable/mulish": "^5.3.0",
     "@fontsource/cinzel": "^5.3.0",

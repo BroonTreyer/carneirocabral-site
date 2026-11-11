@@ -1,0 +1,127 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Contato from '../../components/Contato.astro';
+import Icone from '../../components/Icone.astro';
+import { AREAS, SITE, TELEFONES } from '../../data/site';
+
+export async function getStaticPaths() {
+  const artigos = await getCollection('artigos');
+  return artigos.map((a) => ({ params: { slug: a.id }, props: { artigo: a, todos: artigos } }));
+}
+const { artigo, todos } = Astro.props;
+const { Content, headings } = await render(artigo);
+const d = artigo.data;
+const area = AREAS.find((a) => a.slug === d.area)!;
+const url = `${SITE.url}/artigos/${artigo.id}/`;
+const imagem = `/og/artigos/${artigo.id}.png`;
+const palavras = (artigo.body ?? '').split(/\s+/).length;
+const minutos = Math.max(3, Math.round(palavras / 200));
+const dataBr = (dt: Date) => dt.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const indice = headings.filter((h) => h.depth === 2);
+const relacionados = [...todos.filter((a) => a.id !== artigo.id && a.data.area === d.area), ...todos.filter((a) => a.id !== artigo.id && a.data.area !== d.area)].slice(0, 3);
+const msg = encodeURIComponent(`Olá! Li o artigo "${d.titulo}" no site e gostaria de falar sobre o meu caso.`);
+
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Article', '@id': `${url}#artigo`,
+    headline: d.titulo, description: d.descricao, inLanguage: 'pt-BR',
+    datePublished: d.publicado.toISOString(), dateModified: (d.atualizado ?? d.publicado).toISOString(),
+    image: [`${SITE.url}${imagem}`], mainEntityOfPage: url, wordCount: palavras,
+    keywords: d.palavrasChave.join(', '), articleSection: area.titulo,
+    author: { '@type': 'Organization', '@id': `${SITE.url}/#escritorio`, name: SITE.nomeCompleto, url: SITE.url },
+    publisher: { '@id': `${SITE.url}/#escritorio` },
+    about: { '@type': 'Thing', name: area.titulo },
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Artigos', item: `${SITE.url}/artigos/` },
+      { '@type': 'ListItem', position: 3, name: d.titulo, item: url },
+    ],
+  },
+  ...(d.perguntas.length ? [{
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: d.perguntas.map((q) => ({ '@type': 'Question', name: q.p, acceptedAnswer: { '@type': 'Answer', text: q.r } })),
+  }] : []),
+];
+---
+<Base titulo={`${d.tituloSeo} | Carneiro Cabral`} descricao={d.descricao} schema={schema} imagem={imagem} imagemAlt={d.titulo} tipo="article" publicado={d.publicado} atualizado={d.atualizado}>
+  <header class="capa capa--artigo">
+    <div class="conteiner conteiner--artigo">
+      <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / <a href="/artigos/">Artigos</a> / <a href={`/atuacao/${area.slug}/`}>{area.titulo}</a></p></nav>
+      <h1 class="capa__titulo capa__titulo--artigo">{d.titulo}</h1>
+      <p class="capa__texto">{d.resumo}</p>
+      <p class="artigo-meta">
+        <span>Publicado em <time datetime={d.publicado.toISOString()}>{dataBr(d.publicado)}</time></span>
+        {d.atualizado && <span>Atualizado em <time datetime={d.atualizado.toISOString()}>{dataBr(d.atualizado)}</time></span>}
+        <span>Leitura de {minutos} minutos</span>
+        <span>Por {SITE.nomeCompleto}</span>
+      </p>
+    </div>
+  </header>
+
+  <div class="secao secao--pedra artigo-corpo">
+    <div class="conteiner artigo-grade">
+      <article class="prosa">
+        <Content />
+
+        {d.perguntas.length > 0 && (
+          <section class="artigo-faq" aria-labelledby="artigo-faq-titulo">
+            <h2 id="artigo-faq-titulo">Perguntas frequentes</h2>
+            <div class="faq">
+              {d.perguntas.map((q) => (
+                <details class="faq__item">
+                  <summary>{q.p}</summary>
+                  <p>{q.r}</p>
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <p class="artigo-aviso">Este conteúdo tem caráter informativo e não substitui a análise de um advogado sobre o seu caso concreto. As informações refletem a legislação e a jurisprudência na data de publicação.</p>
+      </article>
+
+      <aside class="artigo-lateral">
+        {indice.length > 1 && (
+          <nav class="artigo-indice" aria-label="Neste artigo">
+            <p class="artigo-indice__titulo">Neste artigo</p>
+            <ol>
+              {indice.map((h) => <li><a href={`#${h.slug}`}>{h.text}</a></li>)}
+            </ol>
+          </nav>
+        )}
+        <div class="cartao-lateral artigo-cta">
+          <p class="cartao-lateral__titulo">Precisa de orientação?</p>
+          <p>Conte o seu caso. Respondemos para marcar uma conversa, presencial ou por videochamada.</p>
+          <a class="botao botao--ouro" href={`https://wa.me/${TELEFONES.brasilia.whatsapp}?text=${msg}`} target="_blank" rel="noopener"><Icone nome="whatsapp" class="botao__icone" />Falar pelo WhatsApp</a>
+          <a class="artigo-cta__area" href={`/atuacao/${area.slug}/`}>Ver a atuação em {area.titulo}</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  {relacionados.length > 0 && (
+    <section class="secao secao--clara" aria-labelledby="relacionados-titulo">
+      <div class="conteiner">
+        <h2 id="relacionados-titulo" class="titulo" data-revelar>Leia também</h2>
+        <ul class="artigos-grade">
+          {relacionados.map((a) => (
+            <li class="artigo-card" data-revelar>
+              <a class="artigo-card__link" href={`/artigos/${a.id}/`}>
+                <span class="artigo-card__area">{AREAS.find((x) => x.slug === a.data.area)?.titulo}</span>
+                <h3 class="artigo-card__titulo">{a.data.titulo}</h3>
+                <p class="artigo-card__texto">{a.data.resumo}</p>
+                <span class="area-card__mais">Ler o artigo <Icone nome="seta" /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <Contato />
+</Base>

@@ -1,6 +1,6 @@
 # Próximos passos — site carneirocabral.adv.br
 
-Situação em 11/11/2026. Este arquivo explica o que já está pronto, o que falta e como fazer cada etapa.
+Situação em 11/11/2026 (madrugada). Este arquivo explica o que já está pronto, o que falta e como fazer cada etapa.
 
 ---
 
@@ -8,12 +8,14 @@ Situação em 11/11/2026. Este arquivo explica o que já está pronto, o que fal
 
 | Item | Situação |
 |---|---|
-| Site completo (13 páginas) | Pronto e testado |
+| Site completo (20 páginas: 13 institucionais + central de artigos + 6 artigos) | Pronto e testado |
 | Código no GitHub | https://github.com/BroonTreyer/carneirocabral-site (branch `main`) |
 | Hospedagem | GitHub Pages, gratuito, com publicação automática a cada alteração no `main` |
 | Domínio configurado no GitHub | `carneirocabral.adv.br` |
 | Testes | `npm run testar`: 0 falhas. Lighthouse: desempenho 96–97, acessibilidade, boas práticas e SEO 100 |
 | Imagens para o Facebook | Pasta `marca/`: `facebook-perfil.png` (1000×1000) e `facebook-capa.png` (1640×624) |
+
+**Artigos (SEO):** voo cancelado/atrasado, nome negativado, INSS negou benefício, BPC/LOAS, pensão alimentícia, conta bloqueada em execução. Cada um com imagem de compartilhamento própria (`public/og/artigos/`).
 
 **Páginas:** início, 6 áreas de atuação (Consumidor, Empresarial, Trabalho, Agrário e Agronegócio, Família e Sucessões, Previdenciário), 3 cidades (Goiânia, Cuiabá, Brasília), política de privacidade, termos de uso, créditos das imagens e página de erro 404.
 
@@ -51,6 +53,21 @@ gh api -X PUT repos/BroonTreyer/carneirocabral-site/pages -F https_enforced=true
 Se o GitHub disser que o certificado ainda não está pronto, espere mais um pouco e repita.
 
 ---
+
+## 2b. SEO técnico já feito
+
+- Título e descrição únicos por página, canonical, sitemap (`/sitemap-index.xml`), robots.txt, RSS (`/rss.xml`) e `/llms.txt` para buscadores de IA.
+- Dados estruturados: LegalService (escritório e cada cidade), WebSite, Service (áreas), Article (artigos), BreadcrumbList, FAQPage, CollectionPage, Person (equipe).
+- `max-image-preview:large`, imagem de compartilhamento por artigo, links internos entre áreas, cidades e artigos.
+- Lighthouse: SEO e acessibilidade 100, desempenho 95–97.
+
+**O que mais pesa para chegar ao topo e depende do escritório** (em ordem):
+1. Domínio no ar (etapa 2) e Search Console (etapa 3).
+2. **Perfil da Empresa no Google** para cada cidade, com endereço real, fotos do escritório, horário e categoria "Advogado". Pedir **avaliações** a clientes satisfeitos (sem oferecer nada em troca).
+3. **Endereços completos** no site (campo `endereco` em `src/data/site.ts`) e um telefone (62) para Goiânia.
+4. **Mesmo nome, endereço e telefone** em todos os lugares: Google, Facebook, Instagram, Jusbrasil, OAB.
+5. **Um artigo novo por semana**, sobre dúvidas reais de clientes (pode pedir ao Claude: arquivo novo em `src/content/artigos/`).
+6. Links de outros sites (entrevistas, artigos em portais jurídicos, associações).
 
 ## 3. Google Search Console (depois do domínio)
 

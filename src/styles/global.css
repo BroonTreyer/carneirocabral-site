@@ -103,11 +103,12 @@ a { color: inherit; }
 .marca__mono { width: 34px; height: auto; }
 .marca__nome { font-family: var(--f-marca); font-weight: 600; font-size: 1.02rem; letter-spacing: .08em; }
 .menu__lista { display: flex; align-items: center; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.menu__lista a { white-space: nowrap; }
 .menu__lista a:not(.botao) { color: #d6dbe4; text-decoration: none; font-size: .93rem; font-weight: 600; }
 .menu__lista a:not(.botao):hover { color: var(--ouro-claro); }
 .menu__botao { display: none; }
 
-@media (max-width: 960px) {
+@media (max-width: 1200px) {
   .menu__botao {
     display: grid; place-items: center; width: 44px; height: 44px;
     background: none; border: 0; color: var(--pedra); cursor: pointer;

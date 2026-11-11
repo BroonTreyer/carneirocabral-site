@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import Contato from '../../components/Contato.astro';
+import Icone from '../../components/Icone.astro';
+import { AREAS, SITE } from '../../data/site';
+
+const artigos = (await getCollection('artigos')).sort((a, b) => b.data.publicado.getTime() - a.data.publicado.getTime());
+const areasComArtigo = AREAS.filter((ar) => artigos.some((a) => a.data.area === ar.slug));
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Artigos e orientações jurídicas', url: `${SITE.url}/artigos/`,
+    isPartOf: { '@id': `${SITE.url}/#site` },
+    mainEntity: {
+      '@type': 'ItemList',
+      itemListElement: artigos.map((a, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE.url}/artigos/${a.id}/`, name: a.data.titulo })),
+    },
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Artigos', item: `${SITE.url}/artigos/` },
+    ],
+  },
+];
+---
+<Base titulo="Artigos e orientações jurídicas | Carneiro Cabral Advogados" descricao="Guias práticos sobre direito do consumidor, previdenciário, família e cobranças: seus direitos explicados com clareza pela equipe do Carneiro Cabral Advogados." schema={schema}>
+  <header class="capa">
+    <div class="conteiner">
+      <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / Artigos</p></nav>
+      <h1 class="capa__titulo">Artigos e orientações</h1>
+      <p class="capa__texto">Guias práticos para entender os seus direitos antes de tomar uma decisão. Linguagem simples, com a lei e as decisões dos tribunais citadas em cada texto.</p>
+    </div>
+  </header>
+
+  {areasComArtigo.map((ar) => (
+    <section class="secao secao--clara secao--artigos" aria-labelledby={`artigos-${ar.slug}`}>
+      <div class="conteiner">
+        <h2 id={`artigos-${ar.slug}`} class="titulo titulo--menor" data-revelar>{ar.titulo}</h2>
+        <ul class="artigos-grade">
+          {artigos.filter((a) => a.data.area === ar.slug).map((a) => (
+            <li class="artigo-card" data-revelar>
+              <a class="artigo-card__link" href={`/artigos/${a.id}/`}>
+                <span class="artigo-card__area">{ar.titulo}</span>
+                <h3 class="artigo-card__titulo">{a.data.titulo}</h3>
+                <p class="artigo-card__texto">{a.data.resumo}</p>
+                <span class="area-card__mais">Ler o artigo <Icone nome="seta" /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  ))}
+
+  <Contato />
+</Base>

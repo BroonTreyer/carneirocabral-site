@@ -5,7 +5,7 @@ const b = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrom
 const falhas = []; const ok = (c, m) => { if (!c) falhas.push(m); console.log((c ? 'PASSA ' : 'FALHA ') + m); };
 // 1. todas as páginas: status, título, descrição, canonical, h1 único, og, json-ld válido, sem erro de console, sem rolagem horizontal
 const paginas = [...fs.readFileSync('dist/sitemap-0.xml','utf8').matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1].replace('https://carneirocabral.adv.br', B));
-ok(paginas.length === 13, `sitemap com 13 páginas (achou ${paginas.length})`);
+ok(paginas.length === 20, `sitemap com 20 páginas (achou ${paginas.length})`);
 const titulos = new Set();
 for (const w of [1440, 390]) {
   const ctx = await b.newContext({ viewport: { width: w, height: 900 } });

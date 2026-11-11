@@ -9,6 +9,8 @@ import Numeros from '../components/Numeros.astro';
 import Equipe from '../components/Equipe.astro';
 import { AREAS, ETAPAS, PERGUNTAS, CIDADES, PILARES, TELEFONES } from '../data/site';
 import { foto } from '../data/fotos';
+import { getCollection } from 'astro:content';
+const artigos = (await getCollection('artigos')).sort((a, b) => b.data.publicado.getTime() - a.data.publicado.getTime()).slice(0, 3);
 
 const faq = {
   '@context': 'https://schema.org',
@@ -182,6 +184,27 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
                 <span class="cidade-card__estado">{c.estado}</span>
                 <span class="cidade-card__tel">{c.telefone.exibicao}</span>
               </span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="orientacoes" class="secao secao--clara" aria-labelledby="orientacoes-titulo">
+    <div class="conteiner">
+      <div class="cabeca-secao">
+        <h2 id="orientacoes-titulo" class="titulo" data-revelar>Orientações para entender os seus direitos</h2>
+        <p class="paragrafo" data-revelar>Guias práticos, em linguagem simples, sobre as dúvidas que mais chegam ao escritório. <a href="/artigos/">Ver todos os artigos</a>.</p>
+      </div>
+      <ul class="artigos-grade">
+        {artigos.map((a) => (
+          <li class="artigo-card" data-revelar>
+            <a class="artigo-card__link" href={`/artigos/${a.id}/`}>
+              <span class="artigo-card__area">{AREAS.find((x) => x.slug === a.data.area)?.titulo}</span>
+              <h3 class="artigo-card__titulo">{a.data.titulo}</h3>
+              <p class="artigo-card__texto">{a.data.resumo}</p>
+              <span class="area-card__mais">Ler o artigo <Icone nome="seta" /></span>
             </a>
           </li>
         ))}

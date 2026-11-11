@@ -5,6 +5,7 @@ import Icone from '../../components/Icone.astro';
 import { Image } from 'astro:assets';
 import { AREAS, CIDADES, SITE, type Area } from '../../data/site';
 import { foto } from '../../data/fotos';
+import { getCollection } from 'astro:content';
 
 export function getStaticPaths() {
   return AREAS.map((a) => ({ params: { slug: a.slug }, props: { area: a } }));
@@ -13,6 +14,7 @@ const { area } = Astro.props as { area: Area };
 const url = `${SITE.url}/atuacao/${area.slug}/`;
 const fotoCapa: Record<string, string> = { 'direito-agrario-e-agronegocio': 'agro-colheita-soja' };
 const capa = fotoCapa[area.slug];
+const artigosDaArea = (await getCollection('artigos')).filter((a) => a.data.area === area.slug);
 const outras = AREAS.filter((a) => a.slug !== area.slug);
 const schema = [
   {
@@ -80,6 +82,26 @@ const schema = [
       </div>
     </div>
   </section>
+
+  {artigosDaArea.length > 0 && (
+    <section class="secao secao--clara" aria-labelledby="artigos-area-titulo">
+      <div class="conteiner">
+        <h2 id="artigos-area-titulo" class="titulo titulo--menor" data-revelar>Artigos sobre {area.titulo}</h2>
+        <ul class="artigos-grade">
+          {artigosDaArea.map((a) => (
+            <li class="artigo-card" data-revelar>
+              <a class="artigo-card__link" href={`/artigos/${a.id}/`}>
+                <span class="artigo-card__area">{area.titulo}</span>
+                <h3 class="artigo-card__titulo">{a.data.titulo}</h3>
+                <p class="artigo-card__texto">{a.data.resumo}</p>
+                <span class="area-card__mais">Ler o artigo <Icone nome="seta" /></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )}
 
   <section class="secao secao--marinho" aria-labelledby="outras-titulo">
     <div class="conteiner">
