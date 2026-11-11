@@ -11,7 +11,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "imagens": "node scripts/gerar-glifo.mjs && node scripts/gerar-imagens.mjs",
-    "testar": "node scripts/testar.mjs"
+    "testar": "node scripts/testar.mjs",
+    "mapa": "node scripts/gerar-mapa.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

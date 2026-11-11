@@ -1,38 +1,39 @@
 ---
+// Mapa dos três estados (contornos oficiais do IBGE), com as capitais onde o escritório atende.
+import { MAPA } from '../data/mapa';
 import { CIDADES } from '../data/site';
-// Projeção simples (equiretangular) do recorte do Centro-Oeste onde ficam as três cidades.
-const W = 600, H = 320;
-const x = (lon: number) => (lon + 58) * 52;
-const y = (lat: number) => (-lat - 14.5) * 110;
-const pts = CIDADES.map((c) => ({ ...c, px: x(c.lon), py: y(c.lat) }));
-const [goi, cba, bsb] = [pts.find((p) => p.slug === 'goiania')!, pts.find((p) => p.slug === 'cuiaba')!, pts.find((p) => p.slug === 'brasilia')!];
-const curva = (a: typeof goi, b: typeof goi, k = -60) => {
-  const mx = (a.px + b.px) / 2, my = (a.py + b.py) / 2 + k;
-  return `M${a.px.toFixed(1)} ${a.py.toFixed(1)} Q${mx.toFixed(1)} ${my.toFixed(1)} ${b.px.toFixed(1)} ${b.py.toFixed(1)}`;
+const { largura: W, altura: H, estados, vizinhos, pontos, rotulos } = MAPA;
+const capitalDe: Record<string, string> = { MT: 'cuiaba', GO: 'goiania', DF: 'brasilia' };
+const nomeEstado: Record<string, string> = { MT: 'Mato Grosso', GO: 'Goiás', DF: 'Distrito Federal' };
+const rotuloCidade: Record<string, { dx: number; dy: number; anchor: string }> = {
+  cuiaba: { dx: 14, dy: 22, anchor: 'start' },
+  goiania: { dx: -14, dy: 24, anchor: 'end' },
+  brasilia: { dx: 14, dy: -12, anchor: 'start' },
 };
-const rotulo: Record<string, { dx: number; dy: number; anchor: string }> = {
-  cuiaba: { dx: 0, dy: 34, anchor: 'middle' },
-  goiania: { dx: -14, dy: 30, anchor: 'end' },
-  brasilia: { dx: 0, dy: -22, anchor: 'middle' },
-};
-const meridianos = [-57, -55, -53, -51, -49, -47].map(x);
-const paralelos = [-15, -16, -17].map(y);
+const cidade = (slug: string) => CIDADES.find((c) => c.slug === slug)!;
+// GO vem antes do DF para o DF ficar por cima
+const ordem = [...estados].sort((a, b) => (a.uf === 'DF' ? 1 : b.uf === 'DF' ? -1 : 0));
 ---
-<svg class="mapa" viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Mapa com a localização dos escritórios em Cuiabá, Goiânia e Brasília">
-  <g class="mapa__grade" aria-hidden="true">
-    {meridianos.map((m) => <line x1={m} y1="0" x2={m} y2={H} />)}
-    {paralelos.map((p) => <line x1="0" y1={p} x2={W} y2={p} />)}
+<svg class="mapa" viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="mapa-titulo">
+  <title id="mapa-titulo">Mapa de Mato Grosso, Goiás e Distrito Federal com os escritórios em Cuiabá, Goiânia e Brasília</title>
+  <g class="mapa__vizinhos" aria-hidden="true">
+    {vizinhos.map((v) => <path d={v.d} />)}
   </g>
-  <g class="mapa__rotas" aria-hidden="true">
-    <path d={curva(cba, bsb, -70)} />
-    <path d={curva(cba, goi, 40)} />
-    <path d={curva(goi, bsb, -10)} />
-  </g>
-  {pts.map((p) => (
-    <g class="mapa__cidade">
-      <circle class="mapa__halo" cx={p.px} cy={p.py} r="16" />
-      <circle class="mapa__ponto" cx={p.px} cy={p.py} r="5.5" />
-      <text x={p.px + rotulo[p.slug].dx} y={p.py + rotulo[p.slug].dy} text-anchor={rotulo[p.slug].anchor}>{p.nome}</text>
-    </g>
+  {ordem.map((e) => (
+    <a href={`/advogados-em-${capitalDe[e.uf]}/`} class={`mapa__estado mapa__estado--${e.uf.toLowerCase()}`} aria-label={`${nomeEstado[e.uf]}: advogados em ${cidade(capitalDe[e.uf]).nome}`}>
+      <path d={e.d} />
+    </a>
   ))}
+  <g class="mapa__rotulos" aria-hidden="true">
+    {(['MT', 'GO'] as const).map((uf) => <text x={rotulos[uf][0]} y={rotulos[uf][1]} text-anchor="middle">{nomeEstado[uf]}</text>)}
+  </g>
+  <g class="mapa__cidades" aria-hidden="true">
+    {Object.entries(pontos).map(([slug, [x, y]]) => (
+      <g class="mapa__cidade">
+        <circle class="mapa__pulso" cx={x} cy={y} r="7" />
+        <circle class="mapa__ponto" cx={x} cy={y} r="5" />
+        <text x={x + rotuloCidade[slug].dx} y={y + rotuloCidade[slug].dy} text-anchor={rotuloCidade[slug].anchor}>{cidade(slug).nome}</text>
+      </g>
+    ))}
+  </g>
 </svg>

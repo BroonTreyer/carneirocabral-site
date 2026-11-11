@@ -38,8 +38,7 @@ export const EQUIPE: Pessoa[] = [
 // Créditos das fotografias (licenças abertas exigem atribuição). Aparecem na página /creditos/.
 export const CREDITOS = [
   { foto: 'Estátua da Justiça na Maison du Renard, Bruxelas (recorte)', autor: 'iMahesh', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Maison_du_Renard_(Brussels)_-_Detail_of_the_statue_of_Lady_Justice_(Justicia).jpg' },
-  { foto: 'Supremo Tribunal Federal e a escultura A Justiça, Brasília', autor: 'Leandro Ciuffo', licenca: 'CC BY 2.0', link: 'https://commons.wikimedia.org/wiki/File:Supremo_Brasil.jpg' },
-  { foto: 'A Justiça, de Alfredo Ceschiatti, diante do STF', autor: 'Dasfour2022', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Supreme_Federal_Court_-_Statue.jpg' },
+  { foto: 'Ponte JK ao entardecer, Brasília', autor: 'Arley Cruzper', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Ponte_JK_em_Bras%C3%ADlia_no_entardecer.jpg' },
   { foto: 'Praça Cívica, Goiânia', autor: 'Boaventuravinicius', licenca: 'CC BY-SA 3.0', link: 'https://commons.wikimedia.org/wiki/File:Pra%C3%A7a_C%C3%ADvica_em_Outubro_de_2026.jpg' },
   { foto: 'Vista aérea do centro de Cuiabá', autor: 'Fabio Gomes', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Vista_a%C3%A9rea_de_Cuiab%C3%A1_-_%C3%A1rea_central.jpg' },
   { foto: 'Colheita de soja em Rondonópolis (MT)', autor: 'Roosevelt Pinheiro/Agência Brasil', licenca: 'CC BY 3.0 BR', link: 'https://commons.wikimedia.org/wiki/File:Ronodon%C3%B3polis_colheita_soja_(Roosevelt_Pinheiro)_28mar09.jpg' },
@@ -112,12 +111,12 @@ export const CIDADES: Cidade[] = [
     lon: -47.8828,
     endereco: '',
     texto: [
-      'Em Brasília, atendemos clientes do Distrito Federal e do Entorno e acompanhamos de perto os processos que sobem de Goiás e de Mato Grosso aos tribunais superiores.',
-      'Recurso em tribunal superior pede presença: entrega de memoriais, despachos, sustentações orais e acompanhamento diário das pautas. Estar na capital federal permite fazer isso sem intermediários, além de facilitar o contato com órgãos da administração federal.',
+      'Em Brasília, atendemos pessoas e empresas do Distrito Federal e do Entorno, com reuniões presenciais agendadas e acompanhamento a distância quando for mais prático para o cliente.',
+      'Acompanhamos processos na Justiça do Distrito Federal, na Justiça Federal e na Justiça do Trabalho, além do trabalho consultivo, que resolve muitos problemas antes que cheguem ao Judiciário.',
     ],
-    tribunais: ['Tribunal de Justiça do DF e Territórios (TJDFT)', 'Tribunal Regional Federal da 1ª Região (TRF1)', 'Superior Tribunal de Justiça (STJ)', 'Supremo Tribunal Federal (STF)', 'Tribunal Superior do Trabalho (TST)'],
-    foto: 'brasilia-stf',
-    legenda: 'Supremo Tribunal Federal, Brasília',
+    tribunais: ['Tribunal de Justiça do DF e Territórios (TJDFT)', 'Justiça Federal no Distrito Federal (TRF1)', 'Tribunal Regional do Trabalho da 10ª Região'],
+    foto: 'brasilia-ponte-jk',
+    legenda: 'Ponte JK, Brasília',
   },
 ];
 

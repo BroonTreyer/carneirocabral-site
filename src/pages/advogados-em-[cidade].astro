@@ -75,13 +75,13 @@ const schema = [
     <div class="conteiner">
       <h2 id="areas-cidade" class="titulo titulo--claro" data-revelar>Áreas de atuação em {cidade.nome}</h2>
       <ul class="areas-grade">
-        {AREAS.map((a) => (
+        {AREAS.map((a, i) => (
           <li class="area-card" data-revelar>
             <a class="area-card__link" href={`/atuacao/${a.slug}/`}>
-              <Icone nome={a.icone} class="area-card__icone" />
+              <span class="area-card__topo"><span class="area-card__caixa"><Icone nome={a.icone} class="area-card__icone" /></span><span class="area-card__num" aria-hidden="true">{String(AREAS.indexOf(a) + 1).padStart(2, "0")}</span></span>
               <h3 class="area-card__titulo">{a.titulo}</h3>
               <p class="area-card__texto">{a.texto}</p>
-              <span class="area-card__mais">Saiba mais <Icone nome="seta" /></span>
+              <span class="area-card__mais">Saiba mais sobre esta área <Icone nome="seta" /></span>
             </a>
           </li>
         ))}

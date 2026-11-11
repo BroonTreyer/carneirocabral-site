@@ -1,0 +1,65 @@
+/* =========================================================
+   ÁREAS — cards no modelo da referência (cartão branco, ícone em caixa, número)
+   ========================================================= */
+.secao--clara { background: #f7f3ed; }
+.areas-grade {
+  list-style: none; margin: 0; padding: 0; border: 0; background: none;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); gap: clamp(18px, 2vw, 28px);
+}
+.area-card { background: none; border: 0; }
+.area-card__link {
+  position: relative; display: flex; flex-direction: column; height: 100%;
+  padding: clamp(26px, 2.6vw, 34px); border-radius: 10px; overflow: hidden;
+  background: #fff; color: var(--tinta); text-decoration: none;
+  border: 1px solid #e6ddcf; box-shadow: 0 10px 30px rgba(18, 32, 58, .06);
+  transition: transform .45s cubic-bezier(.2, .7, .2, 1), box-shadow .45s, border-color .45s;
+}
+.area-card__link::before { content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: linear-gradient(90deg, var(--ouro), var(--ouro-claro)); transform: scaleX(0); transform-origin: left; transition: transform .5s cubic-bezier(.2, .7, .2, 1); }
+.area-card__link:hover, .area-card__link:focus-visible { transform: translateY(-6px); box-shadow: 0 24px 50px rgba(18, 32, 58, .14); border-color: #d9c9a8; background: #fff; }
+.area-card__link:hover::before, .area-card__link:focus-visible::before { transform: scaleX(1); }
+.area-card__topo { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 22px; }
+.area-card__caixa { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 10px; background: var(--marinho); box-shadow: 0 8px 18px rgba(18, 32, 58, .25); }
+.area-card__icone { width: 32px; height: 32px; margin: 0; color: var(--ouro-claro); }
+.area-card__num { font-family: var(--f-titulo); font-weight: 600; font-size: 3.4rem; line-height: .8; color: rgba(18, 32, 58, .08); font-variant-numeric: lining-nums; transition: color .45s; }
+.area-card__link:hover .area-card__num { color: rgba(184, 146, 74, .35); }
+.area-card__titulo { margin: 0 0 10px; font-family: var(--f-titulo); font-weight: 600; font-size: 1.6rem; line-height: 1.12; color: var(--marinho); }
+.area-card__texto { margin: 0 0 24px; color: var(--tinta-suave); font-size: .98rem; flex: 1; }
+.area-card__mais { display: flex; align-items: center; gap: 10px; padding-top: 16px; border-top: 1px solid #eee5d8; font-size: .88rem; font-weight: 700; color: var(--ouro-escuro); }
+.area-card__mais .icone { width: 20px; height: 20px; transition: transform .3s; }
+.area-card__link:hover .area-card__mais .icone { transform: translateX(5px); }
+
+/* =========================================================
+   MAPA DOS TRÊS ESTADOS
+   ========================================================= */
+.onde { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+@media (max-width: 860px) { .onde { grid-template-columns: 1fr; } }
+.mapa { width: 100%; height: auto; overflow: hidden; -webkit-mask-image: radial-gradient(ellipse 72% 70% at 50% 50%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse 72% 70% at 50% 50%, #000 62%, transparent 100%); }
+.mapa__vizinhos path { fill: none; stroke: rgba(220, 192, 138, .14); stroke-width: .8; stroke-linejoin: round; }
+.mapa__estado path { fill: #20365c; stroke: var(--ouro-claro); stroke-width: 1.4; stroke-linejoin: round; transition: fill .35s; cursor: pointer; }
+.mapa__estado--df path { fill: var(--ouro); stroke-width: 1.2; }
+.mapa__estado:hover path, .mapa__estado:focus-visible path { fill: #2c4a7a; }
+.mapa__estado--df:hover path { fill: var(--ouro-claro); }
+.mapa__estado:focus-visible { outline: none; }
+.mapa__estado:focus-visible path { stroke: #fff; }
+.mapa__rotulos text { fill: rgba(236, 230, 220, .5); font-family: var(--f-marca); font-size: 13px; letter-spacing: .22em; text-transform: uppercase; pointer-events: none; }
+.mapa__cidade text { fill: #f4efe6; font-family: var(--f-titulo); font-size: 21px; font-weight: 600; paint-order: stroke; stroke: rgba(11, 21, 40, .85); stroke-width: 4px; pointer-events: none; }
+.mapa__ponto { fill: var(--ouro-claro); stroke: #0b1528; stroke-width: 2; }
+.mapa__pulso { fill: none; stroke: var(--ouro-claro); stroke-width: 1.5; transform-box: fill-box; transform-origin: center; animation: mapa-pulso 2.6s ease-out infinite; }
+.mapa__cidade:nth-child(2) .mapa__pulso { animation-delay: .8s; }
+.mapa__cidade:nth-child(3) .mapa__pulso { animation-delay: 1.6s; }
+@keyframes mapa-pulso { 0% { transform: scale(.8); opacity: 1; } 100% { transform: scale(3.2); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .mapa__pulso { animation: none; opacity: 0; } }
+
+/* =========================================================
+   EQUIPE — retratos grandes e carrossel automático
+   ========================================================= */
+.equipe__trilho { grid-auto-columns: clamp(260px, 27vw, 380px); gap: clamp(14px, 1.6vw, 22px); }
+.pessoa { aspect-ratio: 3 / 4; border-radius: 8px; }
+.pessoa__texto { padding: 70px 22px 22px; }
+.pessoa__nome { font-size: clamp(1.4rem, 1.7vw, 1.65rem); }
+.pessoa__cargo { margin-top: 2px; font-size: .9rem; }
+.equipe__progresso { height: 2px; margin: 26px 0 0; max-width: 220px; background: rgba(220, 192, 138, .2); overflow: hidden; }
+.equipe__progresso span { display: block; height: 100%; width: 100%; background: var(--ouro); transform: scaleX(0); transform-origin: left; }
+
+/* seção de impacto: botão */
+.destaque__botao { margin-top: 28px; }

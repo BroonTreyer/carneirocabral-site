@@ -31,8 +31,8 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
     <div class="abertura__grade conteiner">
       <div class="abertura__texto">
         <span class="abertura__filete" aria-hidden="true"></span>
-        <h1 id="titulo-principal" class="abertura__titulo">Do campo aos tribunais superiores.</h1>
-        <p class="abertura__lead">Defendemos pessoas, empresas e produtores rurais em Goiânia, Cuiabá e Brasília, com uma equipe de 11 advogados e um compromisso simples: estudar cada caso a fundo e explicar tudo com clareza.</p>
+        <h1 id="titulo-principal" class="abertura__titulo">Advocacia que conhece o Centro-Oeste.</h1>
+        <p class="abertura__lead">Atendemos pessoas, empresas e produtores rurais em Goiânia, Cuiabá e Brasília, com uma equipe de 11 advogados e um compromisso simples: estudar cada caso a fundo e explicar tudo com clareza.</p>
         <div class="abertura__acoes">
           <a class="botao botao--ouro" href="#contato">Agendar atendimento</a>
           <a class="botao botao--contorno" href={`https://wa.me/${TELEFONES.brasilia.whatsapp}?text=${msg}`} target="_blank" rel="noopener"><Icone nome="whatsapp" class="botao__icone" />Falar pelo WhatsApp</a>
@@ -71,20 +71,20 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
   </section>
 
   <!-- Áreas -->
-  <section id="atuacao" class="secao secao--marinho" aria-labelledby="atuacao-titulo">
+  <section id="atuacao" class="secao secao--clara" aria-labelledby="atuacao-titulo">
     <div class="conteiner">
       <div class="cabeca-secao">
-        <h2 id="atuacao-titulo" class="titulo titulo--claro" data-revelar>Áreas de atuação</h2>
-        <p class="paragrafo paragrafo--claro" data-revelar>Atuamos de forma consultiva, para evitar o conflito, e contenciosa, quando é preciso defender seus direitos na Justiça. Escolha uma área para ver como podemos ajudar.</p>
+        <h2 id="atuacao-titulo" class="titulo" data-revelar>Áreas de atuação</h2>
+        <p class="paragrafo" data-revelar>Atuamos de forma consultiva, para evitar o conflito, e contenciosa, quando é preciso defender seus direitos na Justiça. Escolha uma área para ver como podemos ajudar.</p>
       </div>
       <ul class="areas-grade">
-        {AREAS.map((a) => (
+        {AREAS.map((a, i) => (
           <li class="area-card" data-revelar>
             <a class="area-card__link" href={`/atuacao/${a.slug}/`}>
-              <Icone nome={a.icone} class="area-card__icone" />
+              <span class="area-card__topo"><span class="area-card__caixa"><Icone nome={a.icone} class="area-card__icone" /></span><span class="area-card__num" aria-hidden="true">{String(AREAS.indexOf(a) + 1).padStart(2, "0")}</span></span>
               <h3 class="area-card__titulo">{a.titulo}</h3>
               <p class="area-card__texto">{a.texto}</p>
-              <span class="area-card__mais">Saiba mais <Icone nome="seta" /></span>
+              <span class="area-card__mais">Saiba mais sobre esta área <Icone nome="seta" /></span>
             </a>
           </li>
         ))}
@@ -105,13 +105,14 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
     </div>
   </section>
 
-  <!-- Brasília -->
+  <!-- O espaço -->
   <section class="destaque" aria-labelledby="destaque-titulo">
-    <Image src={foto('stf-a-justica')} widths={[800, 1280, 2000]} sizes="100vw" alt="Escultura A Justiça, de Alfredo Ceschiatti, diante do Supremo Tribunal Federal, iluminada à noite" class="destaque__img" />
+    <Image src={foto('escritorio-estacoes')} widths={[800, 1280, 1672]} sizes="100vw" alt="Estações de trabalho do escritório, com o logo Carneiro Cabral na parede ao fundo" class="destaque__img" />
     <div class="destaque__veu" aria-hidden="true"></div>
     <div class="conteiner destaque__conteudo">
-      <h2 id="destaque-titulo" class="destaque__titulo" data-revelar>Quando o processo chega a Brasília, nós já estamos lá.</h2>
-      <p class="destaque__texto" data-revelar>Recurso em tribunal superior pede presença: entrega de memoriais, despachos e sustentações orais. Do nosso escritório na capital federal, acompanhamos de perto os processos que sobem de Goiás e de Mato Grosso ao STJ, ao TST e ao STF.</p>
+      <h2 id="destaque-titulo" class="destaque__titulo" data-revelar>Um espaço pensado para receber você.</h2>
+      <p class="destaque__texto" data-revelar>Da recepção à sala de reuniões, cada detalhe do escritório foi planejado para que a conversa sobre o seu caso aconteça com conforto e discrição.</p>
+      <a class="botao botao--ouro destaque__botao" href="#contato" data-revelar>Agendar uma visita</a>
     </div>
   </section>
 
@@ -200,7 +201,7 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
       .from('.abertura__base', { opacity: 0, duration: 0.8 }, '<0.2');
     // profundidade ao rolar
     gsap.to('.abertura__foto', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.abertura', start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.fromTo('.destaque__img', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.destaque', start: 'top bottom', end: 'bottom top', scrub: true } });
+    gsap.fromTo('.destaque__img', { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.destaque', start: 'top bottom', end: 'bottom top', scrub: true } });
     gsap.fromTo('.lavoura__img', { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.lavoura', start: 'top bottom', end: 'center center', scrub: true } });
   }
 </script>
