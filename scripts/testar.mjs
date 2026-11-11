@@ -5,7 +5,7 @@ const b = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrom
 const falhas = []; const ok = (c, m) => { if (!c) falhas.push(m); console.log((c ? 'PASSA ' : 'FALHA ') + m); };
 // 1. todas as páginas: status, título, descrição, canonical, h1 único, og, json-ld válido, sem erro de console, sem rolagem horizontal
 const paginas = [...fs.readFileSync('dist/sitemap-0.xml','utf8').matchAll(/<loc>(.*?)<\/loc>/g)].map(m => m[1].replace('https://carneirocabral.adv.br', B));
-ok(paginas.length === 13, `sitemap com 13 páginas (achou ${paginas.length})`);
+ok(paginas.length === 14, `sitemap com 14 páginas (achou ${paginas.length})`);
 const titulos = new Set();
 for (const w of [1440, 390]) {
   const ctx = await b.newContext({ viewport: { width: w, height: 900 } });
@@ -71,7 +71,7 @@ await rm.goto(B + '/'); await rm.waitForTimeout(500);
 ok(await rm.evaluate(() => [...document.querySelectorAll('[data-revelar]')].every(e => getComputedStyle(e).opacity === '1')), 'com movimento reduzido, tudo visível');
 // 8. animações revelam conteúdo ao rolar
 const an = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage();
-await an.goto(B + '/'); for (let y = 0; y < 9000; y += 500) { await an.mouse.wheel(0, 500); await an.waitForTimeout(100); } await an.waitForTimeout(1500);
+await an.goto(B + '/'); const alturaTotal = await an.evaluate(() => document.documentElement.scrollHeight); for (let y = 0; y < alturaTotal + 1000; y += 500) { await an.mouse.wheel(0, 500); await an.waitForTimeout(100); } await an.waitForTimeout(1500);
 ok(await an.evaluate(() => [...document.querySelectorAll('[data-revelar]')].every(e => getComputedStyle(e).opacity === '1')), 'após rolar, todos os blocos foram revelados');
 await b.close();
 console.log(`\n${falhas.length} falha(s)`); falhas.forEach(f => console.log(' - ' + f));

@@ -20,13 +20,12 @@ const voltas = [0, 1];
           <p class="paragrafo paragrafo--claro equipe__intro" data-revelar>Advogados que atendem, estudam e acompanham cada processo do início ao fim.</p>
         </div>
         <div class="equipe__setas">
-          <button type="button" class="equipe__seta equipe__pausa" aria-pressed="false" aria-label="Pausar a passagem automática"><span aria-hidden="true">❚❚</span></button>
-          <button type="button" class="equipe__seta" data-dir="-1" aria-label="Advogado anterior">‹</button>
-          <button type="button" class="equipe__seta" data-dir="1" aria-label="Próximo advogado">›</button>
+          <button type="button" class="equipe__seta equipe__pausa" aria-pressed="false" aria-label="Pausar a esteira de fotos"><span aria-hidden="true">❚❚</span></button>
         </div>
       </div>
     </div>
-    <ul class="equipe__trilho" data-trilho aria-label="Equipe de advogados">
+    <div class="esteira" data-esteira>
+    <ul class="esteira__faixa" aria-label="Equipe de advogados" style={`--duracao: ${pessoas.length * 9}s`}>
       {voltas.map((v) => pessoas.map((p) => (
         <li class="pessoa" aria-hidden={v === 1 ? 'true' : undefined} data-copia={v === 1 ? '' : undefined}>
           <Image src={p.img!} alt={v === 1 ? '' : p.nome ? `${p.nome}, ${p.cargo.toLowerCase()} do escritório` : p.cargo} widths={[400, 640, 900, 1086]} sizes="(max-width: 600px) 80vw, 380px" quality={88} class="pessoa__foto" />
@@ -37,70 +36,17 @@ const voltas = [0, 1];
         </li>
       )))}
     </ul>
-    <div class="conteiner"><div class="equipe__progresso" aria-hidden="true"><span></span></div></div>
+    </div>
   </section>
 )}
 <script>
-  const trilho = document.querySelector<HTMLElement>('[data-trilho]');
-  const barra = document.querySelector<HTMLElement>('.equipe__progresso span');
-  if (trilho) {
-    const INTERVALO = 3000;
-    const calmo = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let pausadoPeloBotao = false;
-    const pausa = document.querySelector<HTMLButtonElement>('.equipe__pausa');
-    pausa?.addEventListener('click', () => {
-      pausadoPeloBotao = !pausadoPeloBotao;
-      pausa.setAttribute('aria-pressed', String(pausadoPeloBotao));
-      pausa.setAttribute('aria-label', pausadoPeloBotao ? 'Retomar a passagem automática' : 'Pausar a passagem automática');
-      pausa.firstElementChild!.textContent = pausadoPeloBotao ? '▶' : '❚❚';
-    });
-    const cards = () => [...trilho.querySelectorAll<HTMLElement>('.pessoa')];
-    const passo = () => {
-      const [a, b] = cards();
-      return b ? b.offsetLeft - a.offsetLeft : (a?.offsetWidth ?? 300);
-    };
-    // largura de uma volta completa (primeiro card da cópia menos primeiro card original)
-    const volta = () => {
-      const copia = trilho.querySelector<HTMLElement>('[data-copia]');
-      const [primeiro] = cards();
-      return copia && primeiro ? copia.offsetLeft - primeiro.offsetLeft : 0;
-    };
-    // salto invisível: mesma imagem, outra posição da lista
-    const saltar = (delta: number) => {
-      trilho.style.scrollSnapType = 'none';
-      trilho.scrollLeft += delta;
-      requestAnimationFrame(() => { trilho.style.scrollSnapType = ''; });
-    };
-    let decorrido = 0;
-    const avancar = (dir: number) => {
-      const v = volta();
-      if (v) {
-        if (dir > 0 && trilho.scrollLeft >= v - 2) saltar(-v);
-        if (dir < 0 && trilho.scrollLeft < passo() - 2) saltar(v);
-      }
-      trilho.scrollBy({ left: dir * passo(), behavior: calmo ? 'auto' : 'smooth' });
-      decorrido = 0;
-    };
-    document.querySelectorAll<HTMLButtonElement>('.equipe__seta[data-dir]').forEach((b) => b.addEventListener('click', () => avancar(Number(b.dataset.dir))));
-    // se a pessoa arrastar até a cópia, volta para a posição equivalente sem salto visível
-    trilho.addEventListener('scroll', () => { const v = volta(); if (v && trilho.scrollLeft >= v + passo()) saltar(-v); }, { passive: true });
-
-    // passa sozinho; só espera quando a pessoa está arrastando com o dedo ou navegando pelo teclado
-    let visivel = false, ultimo = 0, esperaAte = 0, foco = false;
-    const quadro = (t: number) => {
-      const dt = ultimo ? Math.min(t - ultimo, 100) : 0;
-      ultimo = t;
-      if (visivel && !foco && !pausadoPeloBotao && t > esperaAte && !document.hidden) {
-        decorrido += dt;
-        if (decorrido >= INTERVALO) avancar(1);
-      }
-      if (barra) barra.style.transform = `scaleX(${Math.min(decorrido / INTERVALO, 1)})`;
-      requestAnimationFrame(quadro);
-    };
-    requestAnimationFrame(quadro);
-    trilho.addEventListener('focusin', () => (foco = true));
-    trilho.addEventListener('focusout', () => (foco = false));
-    trilho.addEventListener('pointerdown', () => { esperaAte = performance.now() + 5000; decorrido = 0; });
-    new IntersectionObserver(([e]) => { visivel = e.isIntersecting; }, { threshold: 0.2 }).observe(trilho);
-  }
+  // esteira contínua (animação CSS); o botão só pausa e retoma
+  const esteira = document.querySelector<HTMLElement>('[data-esteira]');
+  const pausa = document.querySelector<HTMLButtonElement>('.equipe__pausa');
+  pausa?.addEventListener('click', () => {
+    const parado = esteira?.classList.toggle('esteira--parada') ?? false;
+    pausa.setAttribute('aria-pressed', String(parado));
+    pausa.setAttribute('aria-label', parado ? 'Retomar a esteira de fotos' : 'Pausar a esteira de fotos');
+    pausa.firstElementChild!.textContent = parado ? '▶' : '❚❚';
+  });
 </script>

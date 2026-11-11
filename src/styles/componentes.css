@@ -72,3 +72,12 @@
 .colagem--unica { margin-bottom: 0; }
 
 .equipe__pausa { font-size: .8rem; letter-spacing: -.1em; }
+
+/* esteira da equipe: movimento contínuo e lento */
+.esteira { overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
+.esteira__faixa { list-style: none; margin: 0; padding: 0; display: flex; width: max-content; animation: esteira var(--duracao, 54s) linear infinite; }
+.esteira__faixa .pessoa { flex: 0 0 clamp(260px, 27vw, 380px); margin-right: clamp(14px, 1.6vw, 22px); }
+.esteira--parada .esteira__faixa { animation-play-state: paused; }
+@keyframes esteira { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+@media (prefers-reduced-motion: reduce) { .esteira__faixa { animation-duration: var(--duracao, 54s) !important; animation-iteration-count: infinite !important; } }

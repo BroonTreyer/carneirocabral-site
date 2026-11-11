@@ -30,9 +30,9 @@ export const EQUIPE: Pessoa[] = [
   { nome: 'Matheus Carneiro', cargo: 'Advogado', oab: '', foto: 'advogado-1.jpg' },
   { nome: 'David Maykon Cabral', cargo: 'Advogado', oab: '', foto: 'advogado-2.jpg' },
   { nome: 'Daniela Martins', cargo: 'Advogada', oab: '', foto: 'advogado-3.jpg' },
-  { nome: 'Victoria Avellar', cargo: 'Advogada', oab: '', foto: 'advogado-4.jpg' },
+  { nome: 'Victória Avellar', cargo: 'Advogada', oab: '', foto: 'advogado-4.jpg' },
   { nome: 'Pedro Krust', cargo: 'Advogado', oab: '', foto: 'advogado-5.jpg' },
-  { nome: 'Ivan Bitencurt', cargo: 'Advogado', oab: '', foto: 'advogado-6.jpg' },
+  { nome: 'Ivan Bitencourt', cargo: 'Advogado', oab: '', foto: 'advogado-6.jpg' },
 ];
 
 // Créditos das fotografias (licenças abertas exigem atribuição). Aparecem na página /creditos/.
@@ -124,7 +124,7 @@ export const CIDADES: Cidade[] = [
 // ÁREAS DE ATUAÇÃO — confirmar com o escritório antes de publicar.
 export type Area = {
   slug: string;
-  icone: 'contrato' | 'consumidor' | 'empresa' | 'trabalho' | 'agro' | 'familia';
+  icone: 'contrato' | 'consumidor' | 'empresa' | 'trabalho' | 'agro' | 'familia' | 'previdencia';
   titulo: string;
   texto: string; // resumo para o card
   descricao: string; // meta description da página
@@ -282,6 +282,31 @@ export const AREAS: Area[] = [
       { p: 'É possível fazer o divórcio em cartório?', r: 'Sim, quando há acordo entre o casal sobre todos os pontos. Mesmo havendo filhos menores, a via extrajudicial pode ser possível se as questões relativas a eles já tiverem sido resolvidas na Justiça.' },
       { p: 'Existe prazo para abrir o inventário?', r: 'A lei prevê a abertura em até dois meses após o falecimento. O atraso pode gerar multa sobre o imposto de transmissão, conforme a legislação de cada estado.' },
       { p: 'Como é calculada a pensão alimentícia?', r: 'Não existe percentual fixo na lei. O valor considera a necessidade de quem recebe e a possibilidade de quem paga, analisadas caso a caso. É possível pedir revisão quando a situação de uma das partes muda.' },
+    ],
+  },
+  {
+    slug: 'direito-previdenciario',
+    icone: 'previdencia',
+    titulo: 'Direito Previdenciário',
+    texto: 'Aposentadorias, auxílio por incapacidade, pensão por morte, BPC/LOAS e revisões. Do pedido ao INSS à ação na Justiça.',
+    descricao: 'Direito Previdenciário em Goiânia, Cuiabá e Brasília: aposentadoria, auxílio por incapacidade, pensão por morte, BPC/LOAS e benefícios negados pelo INSS.',
+    intro: [
+      'Um benefício negado pelo INSS costuma chegar num momento difícil: depois de um afastamento por doença, da perda de alguém da família ou de uma vida inteira de trabalho que agora precisa ser reconhecida.',
+      'Analisamos o histórico de contribuições, os laudos e as decisões do INSS para encontrar o melhor caminho, seja um novo pedido bem instruído, o recurso administrativo ou a ação judicial.',
+      'Na Previdência, detalhes fazem diferença: um vínculo que não aparece no cadastro, um período rural sem registro, um laudo que não descreveu bem a limitação. É nesse trabalho minucioso que muitos benefícios são reconhecidos.',
+    ],
+    servicos: [
+      'Aposentadorias por idade, por tempo de contribuição, especial e da pessoa com deficiência',
+      'Auxílio por incapacidade temporária e aposentadoria por incapacidade permanente',
+      'Pensão por morte e auxílio-reclusão',
+      'Benefício assistencial ao idoso e à pessoa com deficiência (BPC/LOAS)',
+      'Reconhecimento de tempo rural, especial e de vínculos que não constam no cadastro',
+      'Revisão de benefícios e recursos contra decisões do INSS',
+    ],
+    perguntas: [
+      { p: 'O INSS negou meu benefício. O que posso fazer?', r: 'É possível apresentar recurso administrativo, em regra no prazo de 30 dias a partir da ciência da decisão, ou entrar com ação na Justiça. A escolha depende do motivo da negativa e das provas disponíveis.' },
+      { p: 'Preciso pedir ao INSS antes de entrar na Justiça?', r: 'Em regra, sim. Para a maioria dos benefícios, a Justiça exige que o pedido tenha sido feito antes ao INSS. Por isso, um pedido bem instruído desde o início faz tanta diferença.' },
+      { p: 'Quem tem direito ao BPC/LOAS?', r: 'Idosos a partir de 65 anos e pessoas com deficiência em situação de baixa renda familiar. O critério de renda é de até um quarto do salário mínimo por pessoa da família, e pode ser analisado com mais flexibilidade em alguns casos.' },
     ],
   },
 ];
