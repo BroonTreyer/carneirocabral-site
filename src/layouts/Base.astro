@@ -6,10 +6,11 @@ import '@fontsource-variable/cormorant-garamond/wght-italic.css';
 import '@fontsource-variable/mulish';
 import '../styles/global.css';
 import '../styles/secoes.css';
+import '../styles/abertura.css';
 import Cabecalho from '../components/Cabecalho.astro';
 import Rodape from '../components/Rodape.astro';
 import WhatsappFlutuante from '../components/WhatsappFlutuante.astro';
-import { SITE, CIDADES, TELEFONES } from '../data/site';
+import { SITE, CIDADES, TELEFONES, EQUIPE, NUMEROS } from '../data/site';
 
 interface Props {
   titulo: string;
@@ -39,6 +40,8 @@ const organizacao = {
     { '@type': 'ContactPoint', telephone: TELEFONES.cuiaba.e164, contactType: 'customer service', areaServed: 'MT', availableLanguage: 'Portuguese' },
   ],
   sameAs: [SITE.facebook, SITE.instagram].filter(Boolean),
+  numberOfEmployees: { '@type': 'QuantitativeValue', value: NUMEROS.find((n) => n.rotulo.includes('advogados'))?.valor },
+  employee: EQUIPE.filter((p) => p.nome).map((p) => ({ '@type': 'Person', name: p.nome, jobTitle: p.cargo })),
 };
 ---
 <!doctype html>

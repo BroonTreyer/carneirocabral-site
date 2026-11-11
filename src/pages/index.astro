@@ -22,20 +22,17 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
   descricao="Escritório com mais de 25 mil processos acompanhados e 11 advogados em Goiânia, Cuiabá e Brasília. Civil, Consumidor, Empresarial, Trabalho, Agro e Família."
   schema={[faq]}
 >
-  <!-- Abertura: a Justiça em pedra e ouro sobre o azul do escritório -->
+  <!-- Abertura: a recepção do escritório, com a marca como na parede -->
   <section class="abertura" aria-labelledby="titulo-principal">
-    <div class="abertura__fundo" aria-hidden="true">
-      <Monograma id="mono-marca-dagua" class="abertura__marca-dagua" titulo="" />
-      <span class="abertura__luz"></span>
+    <div class="abertura__foto" aria-hidden="true">
+      <Image src={foto('escritorio-recepcao')} widths={[768, 1200, 1536]} sizes="100vw" alt="" loading="eager" fetchpriority="high" class="abertura__img" />
     </div>
+    <span class="abertura__moldura" aria-hidden="true"></span>
     <div class="abertura__grade conteiner">
-      <figure class="abertura__estatua">
-        <Picture src={foto('temis')} formats={['avif', 'webp']} widths={[420, 640, 893]} sizes="(max-width: 860px) 60vw, 34vw" alt="Estátua da Justiça, de olhos vendados, segurando a espada e a balança douradas" loading="eager" fetchpriority="high" class="abertura__img" />
-      </figure>
       <div class="abertura__texto">
-        <p class="abertura__marca">Carneiro Cabral <span>Advogados Associados</span></p>
+        <span class="abertura__filete" aria-hidden="true"></span>
         <h1 id="titulo-principal" class="abertura__titulo">Do campo aos tribunais superiores.</h1>
-        <p class="abertura__lead">Somos um escritório do Centro-Oeste. Defendemos pessoas, empresas e produtores rurais a partir de Goiânia, Cuiabá e Brasília, com uma equipe de 11 advogados e um compromisso simples: estudar cada caso a fundo e explicar tudo com clareza.</p>
+        <p class="abertura__lead">Defendemos pessoas, empresas e produtores rurais em Goiânia, Cuiabá e Brasília, com uma equipe de 11 advogados e um compromisso simples: estudar cada caso a fundo e explicar tudo com clareza.</p>
         <div class="abertura__acoes">
           <a class="botao botao--ouro" href="#contato">Agendar atendimento</a>
           <a class="botao botao--contorno" href={`https://wa.me/${TELEFONES.brasilia.whatsapp}?text=${msg}`} target="_blank" rel="noopener"><Icone nome="whatsapp" class="botao__icone" />Falar pelo WhatsApp</a>
@@ -53,19 +50,12 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
       <div class="manifesto__texto">
         <h2 id="escritorio-titulo" class="titulo" data-revelar>Por trás de cada número de processo, há alguém esperando uma resposta.</h2>
         <p class="paragrafo paragrafo--destaque" data-revelar>Uma família à espera de um inventário. Uma empresa que precisa continuar funcionando. Uma safra que não pode parar por causa de um contrato mal resolvido.</p>
-        <p class="paragrafo" data-revelar>O Carneiro Cabral nasceu no Centro-Oeste e cresceu atendendo gente do Centro-Oeste. Conhecemos os tribunais, os cartórios, as distâncias e o ritmo da região, e sabemos que, para quem nos procura, o problema é sempre urgente.</p>
-        <p class="paragrafo" data-revelar>Mais de 25 mil processos depois, o método continua o mesmo do primeiro dia: ler tudo, explicar tudo e decidir junto com o cliente.</p>
+        <p class="paragrafo" data-revelar>Com escritórios em Goiânia, Cuiabá e Brasília, o Carneiro Cabral conhece as distâncias e o ritmo do Centro-Oeste. E sabe que, para quem nos procura, o problema é sempre urgente.</p>
+        <p class="paragrafo" data-revelar>São mais de 25 mil processos acompanhados, e cada um segue o mesmo método: ler tudo, explicar tudo e decidir junto com o cliente.</p>
       </div>
-      <figure class="painel-recepcao" data-revelar aria-hidden="true">
-        <div class="painel-recepcao__marinho"></div>
-        <div class="painel-recepcao__parede">
-          <span class="painel-recepcao__led"></span>
-          <Monograma id="mono-painel" class="painel-recepcao__mono" titulo="" />
-          <span class="painel-recepcao__nome">Carneiro Cabral</span>
-          <span class="painel-recepcao__sub">Advogados Associados</span>
-        </div>
-        <div class="painel-recepcao__ripas"></div>
-        <div class="painel-recepcao__balcao"></div>
+      <figure class="colagem" data-revelar>
+        <Image src={foto('escritorio-reuniao')} widths={[480, 768, 1024]} sizes="(max-width: 960px) 90vw, 40vw" alt="Sala de reuniões do escritório, com mesa de madeira e o logo Carneiro Cabral na parede" class="colagem__principal" />
+        <Image src={foto('escritorio-corredor')} widths={[360, 560]} sizes="(max-width: 960px) 50vw, 20vw" alt="Corredor do escritório com as salas dos advogados" class="colagem__detalhe" />
       </figure>
     </div>
     <div class="conteiner">
@@ -109,7 +99,7 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
     </div>
     <div class="lavoura__texto">
       <h2 id="lavoura-titulo" class="titulo" data-revelar>Advocacia para quem produz.</h2>
-      <p class="paragrafo paragrafo--destaque" data-revelar>Goiás e Mato Grosso estão entre os maiores produtores de grãos do país. Boa parte dos nossos clientes vive do campo ou trabalha para quem vive dele.</p>
+      <p class="paragrafo paragrafo--destaque" data-revelar>Goiás e Mato Grosso estão entre os maiores produtores de grãos do país. Na região, o direito do campo faz parte do dia a dia de famílias, produtores e empresas.</p>
       <p class="paragrafo" data-revelar>Contratos de arrendamento e parceria, compra e venda de safra, crédito rural, regularização de áreas e sucessão da propriedade familiar: são questões que pedem conhecimento técnico e a compreensão de como a atividade funciona na prática, do plantio à entrega.</p>
       <a class="botao botao--marinho" href="/atuacao/direito-agrario-e-agronegocio/" data-revelar>Conhecer a atuação no agronegócio</a>
     </div>
@@ -173,16 +163,21 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
     </div>
   </section>
 
-  <section id="perguntas" class="secao secao--pedra" aria-labelledby="faq-titulo">
-    <div class="conteiner conteiner--estreito">
-      <h2 id="faq-titulo" class="titulo" data-revelar>Perguntas frequentes</h2>
-      <div class="faq" data-revelar>
-        {PERGUNTAS.map((q) => (
-          <details class="faq__item">
-            <summary>{q.p}</summary>
-            <p>{q.r}</p>
-          </details>
-        ))}
+  <section id="perguntas" class="secao secao--pedra perguntas" aria-labelledby="faq-titulo">
+    <div class="conteiner perguntas__grade">
+      <figure class="perguntas__estatua" aria-hidden="true">
+        <Picture src={foto('temis')} formats={['avif', 'webp']} widths={[360, 560]} sizes="(max-width: 960px) 0px, 26vw" alt="" class="perguntas__img" />
+      </figure>
+      <div>
+        <h2 id="faq-titulo" class="titulo" data-revelar>Perguntas frequentes</h2>
+        <div class="faq" data-revelar>
+          {PERGUNTAS.map((q) => (
+            <details class="faq__item">
+              <summary>{q.p}</summary>
+              <p>{q.r}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </div>
   </section>
@@ -195,18 +190,16 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
     gsap.registerPlugin(ScrollTrigger);
-    const tl = gsap.timeline({ defaults: { ease: 'power3.out' }, delay: 0.1 });
-    tl.from('.abertura__luz', { opacity: 0, scale: 0.7, duration: 1.6 })
-      .from('.abertura__estatua', { opacity: 0, y: 60, duration: 1.5 }, '<0.1')
-      .from('.abertura__marca-dagua', { opacity: 0, duration: 2 }, '<')
-      .from('.abertura__marca', { opacity: 0, y: 14, duration: 0.8 }, '<0.5')
-      .from('.abertura__titulo', { opacity: 0, y: 24, duration: 1 }, '<0.15')
-      .from('.abertura__lead', { opacity: 0, y: 16, duration: 0.9 }, '<0.2')
-      .from('.abertura__acoes .botao', { opacity: 0, y: 10, duration: 0.7, stagger: 0.1 }, '<0.2')
+    const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+    tl.fromTo('.abertura__img', { scale: 1.12 }, { scale: 1, duration: 2.8, ease: 'power2.out' })
+      .from('.abertura__moldura', { opacity: 0, scale: 1.03, duration: 1.6 }, '<0.4')
+      .from('.abertura__filete', { scaleX: 0, duration: 1.1, ease: 'power3.inOut' }, '<0.3')
+      .from('.abertura__titulo', { opacity: 0, y: 18, duration: 1 }, '<0.3')
+      .from('.abertura__lead', { opacity: 0, y: 12, duration: 0.9 }, '<0.15')
+      .from('.abertura__acoes .botao', { opacity: 0, y: 8, duration: 0.7, stagger: 0.1 }, '<0.15')
       .from('.abertura__base', { opacity: 0, duration: 0.8 }, '<0.2');
     // profundidade ao rolar
-    gsap.to('.abertura__estatua', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.abertura', start: 'top top', end: 'bottom top', scrub: true } });
-    gsap.to('.abertura__marca-dagua', { yPercent: -12, ease: 'none', scrollTrigger: { trigger: '.abertura', start: 'top top', end: 'bottom top', scrub: true } });
+    gsap.to('.abertura__foto', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.abertura', start: 'top top', end: 'bottom top', scrub: true } });
     gsap.fromTo('.destaque__img', { yPercent: -8 }, { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '.destaque', start: 'top bottom', end: 'bottom top', scrub: true } });
     gsap.fromTo('.lavoura__img', { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.lavoura', start: 'top bottom', end: 'center center', scrub: true } });
   }

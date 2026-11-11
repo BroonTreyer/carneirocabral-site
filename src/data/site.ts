@@ -25,7 +25,15 @@ export const NUMEROS = [
 // EQUIPE — preencher com dados e fotos REAIS. O carrossel só aparece quando houver pessoas aqui.
 // foto: arquivo em src/assets/equipe/ (ex.: 'nome-sobrenome.jpg'), padronizado com scripts/padronizar-equipe.mjs.
 export type Pessoa = { nome: string; cargo: string; oab: string; foto: string; cidade?: string };
-export const EQUIPE: Pessoa[] = [];
+// Na versão publicada só aparece quem tiver NOME preenchido. Na prévia (PREVIA_EQUIPE=1) aparecem todos.
+export const EQUIPE: Pessoa[] = [
+  { nome: 'Matheus Carneiro', cargo: 'Advogado', oab: '', foto: 'advogado-1.jpg' },
+  { nome: 'David Maykon Cabral', cargo: 'Advogado', oab: '', foto: 'advogado-2.jpg' },
+  { nome: 'Daniela Martins', cargo: 'Advogada', oab: '', foto: 'advogado-3.jpg' },
+  { nome: 'Victoria Avellar', cargo: 'Advogada', oab: '', foto: 'advogado-4.jpg' },
+  { nome: 'Pedro Krust', cargo: 'Advogado', oab: '', foto: 'advogado-5.jpg' },
+  { nome: 'Ivan Bitencurt', cargo: 'Advogado', oab: '', foto: 'advogado-6.jpg' },
+];
 
 // Créditos das fotografias (licenças abertas exigem atribuição). Aparecem na página /creditos/.
 export const CREDITOS = [
@@ -280,15 +288,15 @@ export const AREAS: Area[] = [
 
 export const PILARES = [
   { titulo: 'Clareza', texto: 'Você sai de cada conversa sabendo o que vai ser feito, quanto tempo deve levar, quanto custa e quais são os riscos. Tudo por escrito.' },
-  { titulo: 'Sigilo', texto: 'O que você nos conta fica entre você e o escritório. É dever profissional do advogado, e tratamos esse dever como regra da casa.' },
-  { titulo: 'Presença', texto: 'Quem cuida do seu caso atende o seu contato. Sem central de atendimento e sem precisar repetir a história a cada ligação.' },
+  { titulo: 'Sigilo', texto: 'O que você nos conta fica entre você e o escritório. O sigilo profissional é dever do advogado, previsto em lei, e vale desde o primeiro contato.' },
+  { titulo: 'Proximidade', texto: 'Você sabe quem é o advogado responsável pelo seu caso e tem um canal direto com a equipe que cuida dele.' },
 ];
 
 export const ETAPAS = [
   { titulo: 'Primeira conversa', texto: 'Você conta o que aconteceu, pelo WhatsApp, por telefone ou pessoalmente. Já nesse contato dizemos se o caso é da nossa área e quais documentos separar.' },
   { titulo: 'Estudo do caso', texto: 'Lemos os documentos, verificamos prazos e decisões recentes dos tribunais e respondemos à pergunta que importa: vale a pena seguir, e por qual caminho?' },
   { titulo: 'Proposta por escrito', texto: 'Você recebe a estratégia, os riscos e os honorários em um documento claro, antes de assinar qualquer coisa. Sem letras miúdas.' },
-  { titulo: 'Acompanhamento', texto: 'Cada andamento relevante é comunicado e explicado em linguagem simples. Você não precisa ligar para saber como está o seu processo.' },
+  { titulo: 'Acompanhamento', texto: 'Cada andamento relevante é comunicado e explicado em linguagem simples, para que você acompanhe o processo sem precisar decifrar termos técnicos.' },
 ];
 
 export const PERGUNTAS = [

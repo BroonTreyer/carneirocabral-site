@@ -5,13 +5,17 @@ import { EQUIPE } from '../data/site';
 import type { ImageMetadata } from 'astro';
 const arquivos = import.meta.glob<{ default: ImageMetadata }>('../assets/equipe/*.{jpg,jpeg,png,webp}', { eager: true });
 const fotoDe = (nome: string) => Object.entries(arquivos).find(([p]) => p.endsWith('/' + nome))?.[1].default;
-const pessoas = EQUIPE.map((p) => ({ ...p, img: fotoDe(p.foto) })).filter((p) => p.img);
+const previa = process.env.PREVIA_EQUIPE === '1';
+const pessoas = EQUIPE.map((p) => ({ ...p, img: fotoDe(p.foto) })).filter((p) => p.img && (p.nome || previa));
 ---
 {pessoas.length > 0 && (
   <section id="equipe" class="secao secao--marinho equipe" aria-labelledby="equipe-titulo">
     <div class="conteiner">
       <div class="equipe__topo">
-        <h2 id="equipe-titulo" class="titulo titulo--claro" data-revelar>Quem cuida do seu caso</h2>
+        <div>
+          <h2 id="equipe-titulo" class="titulo titulo--claro" data-revelar>Quem cuida do seu caso</h2>
+          <p class="paragrafo paragrafo--claro equipe__intro" data-revelar>Advogados que atendem, estudam e acompanham cada processo do início ao fim.</p>
+        </div>
         <div class="equipe__setas">
           <button type="button" class="equipe__seta" data-dir="-1" aria-label="Anterior">‹</button>
           <button type="button" class="equipe__seta" data-dir="1" aria-label="Próximo">›</button>
@@ -21,9 +25,9 @@ const pessoas = EQUIPE.map((p) => ({ ...p, img: fotoDe(p.foto) })).filter((p) =>
     <ul class="equipe__trilho" data-trilho>
       {pessoas.map((p) => (
         <li class="pessoa">
-          <Image src={p.img!} alt={`${p.nome}, ${p.cargo}`} widths={[320, 480, 640]} sizes="(max-width: 600px) 70vw, 300px" class="pessoa__foto" />
+          <Image src={p.img!} alt={p.nome ? `${p.nome}, ${p.cargo}` : p.cargo} widths={[320, 480, 640]} sizes="(max-width: 600px) 70vw, 300px" class="pessoa__foto" />
           <div class="pessoa__texto">
-            <p class="pessoa__nome">{p.nome}</p>
+            <p class="pessoa__nome">{p.nome || "Nome a confirmar"}</p>
             <p class="pessoa__cargo">{p.cargo}{p.oab && `, ${p.oab}`}</p>
           </div>
         </li>
