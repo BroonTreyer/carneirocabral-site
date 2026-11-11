@@ -17,7 +17,7 @@ export const SITE = {
 // porque a divulgação de resultados é vedada pela OAB (Provimento 205/2021).
 export const NUMEROS = [
   { valor: 25000, prefixo: '+', rotulo: 'processos acompanhados' },
-  { valor: 2000, prefixo: '+', rotulo: 'clientes atendidos' },
+  { valor: 9000, prefixo: '+', rotulo: 'clientes atendidos' },
   { valor: 11, prefixo: '', rotulo: 'advogados na equipe' },
   { valor: 3, prefixo: '', rotulo: 'capitais do Centro-Oeste' },
 ];
@@ -134,31 +134,6 @@ export type Area = {
 };
 
 export const AREAS: Area[] = [
-  {
-    slug: 'direito-civil-e-contratos',
-    icone: 'contrato',
-    titulo: 'Direito Civil e Contratos',
-    texto: 'Elaboração e revisão de contratos, cobranças, indenizações, responsabilidade civil e conflitos entre particulares.',
-    descricao: 'Advocacia em Direito Civil e Contratos em Goiânia, Cuiabá e Brasília: elaboração e revisão de contratos, cobranças, indenizações e responsabilidade civil.',
-    intro: [
-      'Boa parte dos conflitos começa em um contrato mal redigido, em um acordo feito só de palavra ou em um prejuízo que ninguém quer assumir. O Direito Civil cuida dessas relações entre pessoas e empresas no dia a dia.',
-      'Atuamos tanto na prevenção, redigindo e revisando contratos antes da assinatura, quanto na solução de conflitos já instalados, buscando primeiro o acordo e, quando necessário, a via judicial.',
-      'Contrato bom é aquele que ninguém precisa abrir na gaveta depois de assinado. Quando o conflito já existe, a pergunta passa a ser outra: quanto custa resolver, quanto tempo leva e o que se ganha com isso. Respondemos as três antes de qualquer passo.',
-    ],
-    servicos: [
-      'Elaboração e revisão de contratos de compra e venda, locação, prestação de serviços e parcerias',
-      'Notificações extrajudiciais e tentativas de acordo antes do processo',
-      'Ações de cobrança, execução de títulos e monitórias',
-      'Ações de indenização por danos materiais e morais',
-      'Rescisão de contratos e discussão de multas e cláusulas abusivas',
-      'Questões de posse e propriedade de imóveis urbanos',
-    ],
-    perguntas: [
-      { p: 'Vale a pena revisar um contrato antes de assinar?', r: 'Sim. A revisão prévia costuma custar menos do que resolver depois um problema causado por uma cláusula mal escrita, e permite negociar ajustes enquanto ainda há margem para isso.' },
-      { p: 'Qual é o prazo para cobrar uma dívida na Justiça?', r: 'Depende do tipo de dívida e do documento que a comprova. Em regra, os prazos variam de três a cinco anos, por isso é importante buscar orientação o quanto antes.' },
-      { p: 'Contrato de boca tem validade?', r: 'Em muitos casos, sim. O problema é provar o que foi combinado. Mensagens, comprovantes de pagamento e testemunhas ajudam, e uma análise do conjunto indica se vale a pena cobrar na Justiça.' },
-    ],
-  },
   {
     slug: 'direito-do-consumidor',
     icone: 'consumidor',
