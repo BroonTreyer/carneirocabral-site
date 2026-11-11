@@ -31,7 +31,7 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
     <div class="abertura__grade conteiner">
       <div class="abertura__texto">
         <span class="abertura__filete" aria-hidden="true"></span>
-        <h1 id="titulo-principal" class="abertura__titulo">Advocacia que conhece o Centro-Oeste.</h1>
+        <h1 id="titulo-principal" class="abertura__titulo">Advocacia que conhece o&nbsp;Centro-Oeste.</h1>
         <p class="abertura__lead">Atendemos pessoas, empresas e produtores rurais em Goiânia, Cuiabá e Brasília, com uma equipe de 11 advogados e um compromisso simples: estudar cada caso a fundo e explicar tudo com clareza.</p>
         <div class="abertura__acoes">
           <a class="botao botao--ouro" href="#contato">Agendar atendimento</a>
@@ -53,9 +53,8 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
         <p class="paragrafo" data-revelar>Com escritórios em Goiânia, Cuiabá e Brasília, o Carneiro Cabral conhece as distâncias e o ritmo do Centro-Oeste. E sabe que, para quem nos procura, o problema é sempre urgente.</p>
         <p class="paragrafo" data-revelar>São mais de 25 mil processos acompanhados, e cada um segue o mesmo método: ler tudo, explicar tudo e decidir junto com o cliente.</p>
       </div>
-      <figure class="colagem" data-revelar>
-        <Image src={foto('escritorio-reuniao')} widths={[480, 768, 1024]} sizes="(max-width: 960px) 90vw, 40vw" alt="Sala de reuniões do escritório, com mesa de madeira e o logo Carneiro Cabral na parede" class="colagem__principal" />
-        <Image src={foto('escritorio-corredor')} widths={[360, 560]} sizes="(max-width: 960px) 50vw, 20vw" alt="Corredor do escritório com as salas dos advogados" class="colagem__detalhe" />
+      <figure class="colagem colagem--unica" data-revelar>
+        <Image src={foto('escritorio-corredor')} widths={[480, 768, 1024, 1536]} sizes="(max-width: 960px) 90vw, 40vw" alt="Corredor do escritório com as salas de atendimento dos advogados" class="colagem__principal" />
       </figure>
     </div>
     <div class="conteiner">
@@ -105,13 +104,39 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
     </div>
   </section>
 
+  <!-- Consumidor -->
+  <section class="lavoura lavoura--inversa" aria-labelledby="consumidor-titulo">
+    <div class="lavoura__foto">
+      <Image src={foto('consumidor-aeroporto')} widths={[640, 1024, 1600]} sizes="(max-width: 860px) 100vw, 55vw" alt="Saguão de check-in de aeroporto com passageiros e malas" class="lavoura__img" />
+    </div>
+    <div class="lavoura__texto">
+      <h2 id="consumidor-titulo" class="titulo" data-revelar>Quando a empresa erra, você tem a quem recorrer.</h2>
+      <p class="paragrafo paragrafo--destaque" data-revelar>Voo cancelado, bagagem extraviada, cobrança que você não reconhece, nome negativado sem motivo, conta de luz ou de telefone que não fecha.</p>
+      <p class="paragrafo" data-revelar>São situações que chegam todos os dias aos Juizados Especiais, contra companhias aéreas, bancos, operadoras e lojas virtuais. O Código de Defesa do Consumidor protege quem foi prejudicado, e o caminho nos Juizados costuma ser mais simples do que se imagina.</p>
+      <a class="botao botao--marinho" href="/atuacao/direito-do-consumidor/" data-revelar>Conhecer a atuação em Direito do Consumidor</a>
+    </div>
+  </section>
+
+  <!-- Cobranças e execuções -->
+  <section class="lavoura" aria-labelledby="cobranca-titulo">
+    <div class="lavoura__foto">
+      <Image src={foto('escritorio-estacoes')} widths={[640, 1024, 1672]} sizes="(max-width: 860px) 100vw, 55vw" alt="Mesa de trabalho do escritório com processos e documentos" class="lavoura__img" />
+    </div>
+    <div class="lavoura__texto">
+      <h2 id="cobranca-titulo" class="titulo" data-revelar>Cobranças e execuções, dos dois lados da mesa.</h2>
+      <p class="paragrafo paragrafo--destaque" data-revelar>Para quem tem a receber, recuperar o crédito. Para quem está sendo cobrado, conferir cada valor e defender o que é justo.</p>
+      <p class="paragrafo" data-revelar>Notas promissórias, cheques, contratos e duplicatas sem pagamento, execuções com bloqueio de conta ou penhora de bens, acordos que caibam no orçamento. Analisamos o título, os cálculos e os prazos para escolher o caminho mais eficiente: negociação, cobrança, execução ou defesa nos embargos.</p>
+      <a class="botao botao--marinho" href="/atuacao/direito-civil-e-contratos/" data-revelar>Conhecer a atuação em cobranças</a>
+    </div>
+  </section>
+
   <!-- O espaço -->
   <section class="destaque" aria-labelledby="destaque-titulo">
-    <Image src={foto('escritorio-estacoes')} widths={[800, 1280, 1672]} sizes="100vw" alt="Estações de trabalho do escritório, com o logo Carneiro Cabral na parede ao fundo" class="destaque__img" />
+    <Image src={foto('escritorio-reuniao')} widths={[800, 1280, 1536]} sizes="100vw" alt="Sala de reuniões do escritório, com mesa de madeira, cadeiras de couro e o logo Carneiro Cabral na parede" class="destaque__img" />
     <div class="destaque__veu" aria-hidden="true"></div>
     <div class="conteiner destaque__conteudo">
-      <h2 id="destaque-titulo" class="destaque__titulo" data-revelar>Um espaço pensado para receber você.</h2>
-      <p class="destaque__texto" data-revelar>Da recepção à sala de reuniões, cada detalhe do escritório foi planejado para que a conversa sobre o seu caso aconteça com conforto e discrição.</p>
+      <h2 id="destaque-titulo" class="destaque__titulo" data-revelar>Uma sala reservada para ouvir você.</h2>
+      <p class="destaque__texto" data-revelar>A conversa sobre o seu caso acontece em uma sala de reuniões reservada, com tempo, conforto e a discrição que o assunto pede.</p>
       <a class="botao botao--ouro destaque__botao" href="#contato" data-revelar>Agendar uma visita</a>
     </div>
   </section>
@@ -202,6 +227,6 @@ const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um ate
     // profundidade ao rolar
     gsap.to('.abertura__foto', { yPercent: 12, ease: 'none', scrollTrigger: { trigger: '.abertura', start: 'top top', end: 'bottom top', scrub: true } });
     gsap.fromTo('.destaque__img', { yPercent: -6 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '.destaque', start: 'top bottom', end: 'bottom top', scrub: true } });
-    gsap.fromTo('.lavoura__img', { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: '.lavoura', start: 'top bottom', end: 'center center', scrub: true } });
+    document.querySelectorAll('.lavoura').forEach((s) => gsap.fromTo(s.querySelector('.lavoura__img'), { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: s, start: 'top bottom', end: 'center center', scrub: true } }));
   }
 </script>

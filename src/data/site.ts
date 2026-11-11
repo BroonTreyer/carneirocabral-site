@@ -41,6 +41,7 @@ export const CREDITOS = [
   { foto: 'Ponte JK ao entardecer, Brasília', autor: 'Arley Cruzper', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Ponte_JK_em_Bras%C3%ADlia_no_entardecer.jpg' },
   { foto: 'Praça Cívica, Goiânia', autor: 'Boaventuravinicius', licenca: 'CC BY-SA 3.0', link: 'https://commons.wikimedia.org/wiki/File:Pra%C3%A7a_C%C3%ADvica_em_Outubro_de_2026.jpg' },
   { foto: 'Vista aérea do centro de Cuiabá', autor: 'Fabio Gomes', licenca: 'CC BY-SA 4.0', link: 'https://commons.wikimedia.org/wiki/File:Vista_a%C3%A9rea_de_Cuiab%C3%A1_-_%C3%A1rea_central.jpg' },
+  { foto: 'Saguão de check-in de aeroporto', autor: 'Arne Müseler', licenca: 'CC BY-SA 3.0 DE', link: 'https://commons.wikimedia.org/wiki/File:Sao_paulo_airport_GRU_terminal_2_check-in_D.jpg' },
   { foto: 'Colheita de soja em Rondonópolis (MT)', autor: 'Roosevelt Pinheiro/Agência Brasil', licenca: 'CC BY 3.0 BR', link: 'https://commons.wikimedia.org/wiki/File:Ronodon%C3%B3polis_colheita_soja_(Roosevelt_Pinheiro)_28mar09.jpg' },
 ];
 

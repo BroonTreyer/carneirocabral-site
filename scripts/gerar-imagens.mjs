@@ -12,7 +12,7 @@ const fav = (pad) => { const s = (100 - pad * 2) / 178; const w = 166 * s; retur
 fs.writeFileSync('public/favicon.svg', fav(12));
 fs.writeFileSync('public/mask.tmp.svg', fav(22));
 const cinzel = 'data:font/woff2;base64,' + fs.readFileSync('node_modules/@fontsource/cinzel/files/cinzel-latin-500-normal.woff2').toString('base64');
-const corm = 'data:font/woff2;base64,' + fs.readFileSync('node_modules/@fontsource-variable/cormorant-garamond/files/cormorant-garamond-latin-wght-normal.woff2').toString('base64');
+const corm = 'data:font/woff2;base64,' + fs.readFileSync('node_modules/@fontsource/eb-garamond/files/eb-garamond-latin-500-normal.woff2').toString('base64');
 const b = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe' });
 const shot = async (html, w, h, out) => {
   const p = await b.newPage({ viewport: { width: w, height: h } });

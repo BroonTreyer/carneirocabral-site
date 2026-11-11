@@ -63,3 +63,12 @@
 
 /* seção de impacto: botão */
 .destaque__botao { margin-top: 28px; }
+
+/* frentes de atuação: foto alterna de lado */
+.lavoura--inversa { grid-template-columns: minmax(0, 9fr) minmax(0, 11fr); background: #f7f3ed; }
+.lavoura--inversa .lavoura__foto { order: 2; }
+.lavoura--inversa .lavoura__texto { padding-left: clamp(20px, 6vw, 96px); padding-right: clamp(28px, 5vw, 72px); }
+@media (max-width: 860px) { .lavoura--inversa { grid-template-columns: 1fr; } .lavoura--inversa .lavoura__foto { order: 0; } }
+.colagem--unica { margin-bottom: 0; }
+
+.equipe__pausa { font-size: .8rem; letter-spacing: -.1em; }
