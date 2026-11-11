@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro';
+import { AREAS } from '../data/site';
+---
+<Base titulo="Página não encontrada | Carneiro Cabral Advogados" descricao="A página procurada não existe ou mudou de endereço." semIndice>
+  <header class="capa capa--cheia">
+    <div class="conteiner">
+      <h1 class="capa__titulo">Esta página não existe ou mudou de endereço.</h1>
+      <p class="capa__texto">Volte para o início ou escolha uma das áreas de atuação abaixo.</p>
+      <div class="recepcao__acoes recepcao__acoes--esquerda">
+        <a class="botao botao--ouro" href="/">Ir para o início</a>
+        <a class="botao botao--contorno" href="/#contato">Falar com o escritório</a>
+      </div>
+      <ul class="lista-404">
+        {AREAS.map((a) => <li><a href={`/atuacao/${a.slug}/`}>{a.titulo}</a></li>)}
+      </ul>
+    </div>
+  </header>
+</Base>

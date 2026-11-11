@@ -1,0 +1,39 @@
+---
+import Monograma from './Monograma.astro';
+const links = [
+  { href: '/#escritorio', texto: 'O escritório' },
+  { href: '/#atuacao', texto: 'Áreas de atuação' },
+  { href: '/#como-trabalhamos', texto: 'Como trabalhamos' },
+  { href: '/#onde-estamos', texto: 'Onde estamos' },
+];
+---
+<header class="cabecalho">
+  <div class="cabecalho__faixa">
+    <a class="marca" href="/" aria-label="Carneiro Cabral Advogados Associados, página inicial">
+      <Monograma id="mono-cab" class="marca__mono" titulo="" />
+      <span class="marca__nome">Carneiro Cabral</span>
+    </a>
+    <nav class="menu" aria-label="Principal">
+      <button class="menu__botao" type="button" aria-expanded="false" aria-controls="menu-lista">
+        <span class="menu__icone" aria-hidden="true"></span>
+        <span class="sr">Abrir menu</span>
+      </button>
+      <ul id="menu-lista" class="menu__lista">
+        {links.map((l) => <li><a href={l.href}>{l.texto}</a></li>)}
+        <li><a class="botao botao--ouro botao--pequeno" href="/#contato">Agendar atendimento</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<script>
+  const botao = document.querySelector<HTMLButtonElement>('.menu__botao');
+  const lista = document.getElementById('menu-lista');
+  const fechar = () => { botao?.setAttribute('aria-expanded', 'false'); document.body.classList.remove('menu-aberto'); };
+  botao?.addEventListener('click', () => {
+    const aberto = botao.getAttribute('aria-expanded') === 'true';
+    botao.setAttribute('aria-expanded', String(!aberto));
+    document.body.classList.toggle('menu-aberto', !aberto);
+  });
+  lista?.querySelectorAll('a').forEach((a) => a.addEventListener('click', fechar));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') fechar(); });
+</script>

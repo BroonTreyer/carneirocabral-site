@@ -1,0 +1,79 @@
+---
+import { SITE, TELEFONES, CIDADES } from '../data/site';
+interface Props { cidadePadrao?: string }
+const { cidadePadrao = '' } = Astro.props;
+const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um atendimento.');
+---
+<section id="contato" class="secao secao--marmore" aria-labelledby="contato-titulo">
+  <div class="conteiner contato">
+    <div class="contato__texto">
+      <h2 id="contato-titulo" class="titulo titulo--claro">Fale com o escritório</h2>
+      <p class="paragrafo paragrafo--claro">Conte brevemente o que está acontecendo. Respondemos para marcar uma conversa, presencial ou por videochamada.</p>
+      <ul class="canais">
+        <li>
+          <a class="canal" href={`https://wa.me/${TELEFONES.brasilia.whatsapp}?text=${msg}`} target="_blank" rel="noopener">
+            <span class="canal__rotulo">WhatsApp Brasília e Goiânia</span>
+            <span class="canal__valor">{TELEFONES.brasilia.exibicao}</span>
+          </a>
+        </li>
+        <li>
+          <a class="canal" href={`https://wa.me/${TELEFONES.cuiaba.whatsapp}?text=${msg}`} target="_blank" rel="noopener">
+            <span class="canal__rotulo">WhatsApp Cuiabá</span>
+            <span class="canal__valor">{TELEFONES.cuiaba.exibicao}</span>
+          </a>
+        </li>
+        <li>
+          <a class="canal" href={`mailto:${SITE.email}`}>
+            <span class="canal__rotulo">E-mail</span>
+            <span class="canal__valor">{SITE.email}</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <form class="formulario" data-formulario novalidate>
+      <div class="campo">
+        <label for="f-nome">Seu nome</label>
+        <input id="f-nome" name="nome" autocomplete="name" required />
+      </div>
+      <div class="campo">
+        <label for="f-tel">Telefone com DDD</label>
+        <input id="f-tel" name="telefone" type="tel" autocomplete="tel" inputmode="tel" required />
+      </div>
+      <div class="campo">
+        <label for="f-cidade">Cidade de atendimento</label>
+        <select id="f-cidade" name="cidade" required>
+          <option value="" selected={!cidadePadrao}>Escolha uma cidade</option>
+          {CIDADES.map((c) => <option value={c.slug} selected={c.slug === cidadePadrao}>{c.nome} ({c.uf})</option>)}
+        </select>
+      </div>
+      <div class="campo">
+        <label for="f-msg">Resumo do caso</label>
+        <textarea id="f-msg" name="mensagem" rows="4" required></textarea>
+      </div>
+      <p class="formulario__aviso">Ao enviar, a mensagem abre no WhatsApp do escritório da cidade escolhida. Seus dados são usados apenas para responder ao seu contato, conforme a <a href="/privacidade/">política de privacidade</a>.</p>
+      <p class="formulario__erro" role="alert" hidden></p>
+      <button class="botao botao--ouro" type="submit">Enviar pelo WhatsApp</button>
+    </form>
+  </div>
+</section>
+<script define:vars={{ numeros: { goiania: TELEFONES.brasilia.whatsapp, brasilia: TELEFONES.brasilia.whatsapp, cuiaba: TELEFONES.cuiaba.whatsapp }, nomes: Object.fromEntries(CIDADES.map((c) => [c.slug, c.nome])) }}>
+  document.querySelectorAll('[data-formulario]').forEach((form) => {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const d = new FormData(form);
+      const faltando = [...form.querySelectorAll('[required]')].filter((el) => !String(el.value).trim());
+      const erro = form.querySelector('.formulario__erro');
+      if (faltando.length) {
+        erro.textContent = 'Preencha todos os campos para enviar a mensagem.';
+        erro.hidden = false;
+        faltando[0].focus();
+        return;
+      }
+      erro.hidden = true;
+      const cidade = String(d.get('cidade'));
+      const texto = `Olá! Meu nome é ${d.get('nome')}. Telefone: ${d.get('telefone')}. Atendimento em ${nomes[cidade]}.\n\n${d.get('mensagem')}`;
+      window.open(`https://wa.me/${numeros[cidade]}?text=${encodeURIComponent(texto)}`, '_blank', 'noopener');
+    });
+  });
+</script>

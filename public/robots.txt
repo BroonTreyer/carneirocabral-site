@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://carneirocabral.adv.br/sitemap-index.xml

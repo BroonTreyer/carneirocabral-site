@@ -1,0 +1,10 @@
+import opentype from 'opentype.js';
+import fs from 'fs';
+const buf = fs.readFileSync('node_modules/@fontsource/cinzel/files/cinzel-latin-500-normal.woff');
+const font = opentype.parse(buf.buffer.slice(buf.byteOffset, buf.byteOffset + buf.byteLength));
+const size = 150;
+const c1 = font.getPath('C', 4, 122, size);
+const c2 = font.getPath('C', 62, 182, size);
+const b1 = c1.getBoundingBox(), b2 = c2.getBoundingBox();
+console.log(JSON.stringify({ b1, b2 }));
+fs.writeFileSync('src/data/glifo.ts', `// Gerado de Cinzel 500 (OFL). Não editar à mão.\nexport const C1 = ${JSON.stringify(c1.toPathData(2))};\nexport const C2 = ${JSON.stringify(c2.toPathData(2))};\nexport const CAIXA = ${JSON.stringify({ x: Math.min(b1.x1,b2.x1), y: Math.min(b1.y1,b2.y1), x2: Math.max(b1.x2,b2.x2), y2: Math.max(b1.y2,b2.y2) })};\n`);

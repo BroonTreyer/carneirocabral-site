@@ -1,0 +1,97 @@
+---
+import Base from '../../layouts/Base.astro';
+import Contato from '../../components/Contato.astro';
+import Icone from '../../components/Icone.astro';
+import { AREAS, CIDADES, SITE, type Area } from '../../data/site';
+
+export function getStaticPaths() {
+  return AREAS.map((a) => ({ params: { slug: a.slug }, props: { area: a } }));
+}
+const { area } = Astro.props as { area: Area };
+const url = `${SITE.url}/atuacao/${area.slug}/`;
+const outras = AREAS.filter((a) => a.slug !== area.slug);
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'Service', name: area.titulo, serviceType: area.titulo, url,
+    description: area.descricao,
+    provider: { '@id': `${SITE.url}/#escritorio` },
+    areaServed: CIDADES.map((c) => ({ '@type': 'City', name: `${c.nome} - ${c.uf}` })),
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: 'Áreas de atuação', item: `${SITE.url}/#atuacao` },
+      { '@type': 'ListItem', position: 3, name: area.titulo, item: url },
+    ],
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'FAQPage',
+    mainEntity: area.perguntas.map((q) => ({ '@type': 'Question', name: q.p, acceptedAnswer: { '@type': 'Answer', text: q.r } })),
+  },
+];
+---
+<Base titulo={`${area.titulo} | Carneiro Cabral Advogados`} descricao={area.descricao} schema={schema}>
+  <header class="capa">
+    <div class="conteiner">
+      <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / <a href="/#atuacao">Áreas de atuação</a> / {area.titulo}</p></nav>
+      <Icone nome={area.icone} class="capa__icone" />
+      <h1 class="capa__titulo">{area.titulo}</h1>
+      <p class="capa__texto">{area.texto}</p>
+      <a class="botao botao--ouro" href="#contato">Falar sobre o meu caso</a>
+    </div>
+  </header>
+
+  <section class="secao secao--pedra">
+    <div class="conteiner bloco">
+      <div>
+        {area.intro.map((t, i) => <p class={i === 0 ? 'paragrafo paragrafo--destaque' : 'paragrafo'} data-revelar>{t}</p>)}
+        <h2 class="subtitulo subtitulo--espaco" data-revelar>Como podemos ajudar</h2>
+        <ul class="lista-servicos" data-revelar>
+          {area.servicos.map((s) => <li>{s}</li>)}
+        </ul>
+      </div>
+      <aside class="cartao-lateral" data-revelar>
+        <h2 class="cartao-lateral__titulo">Atendimento</h2>
+        <p>Presencial com hora marcada ou por videochamada, em todas as nossas cidades:</p>
+        <ul class="cartao-lateral__lista">
+          {CIDADES.map((c) => <li><a href={`/advogados-em-${c.slug}/`}>{c.nome} ({c.uf})</a><span>{c.telefone.exibicao}</span></li>)}
+        </ul>
+        <a class="botao botao--ouro" href="#contato">Agendar atendimento</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="secao secao--pedra secao--colada">
+    <div class="conteiner conteiner--estreito">
+      <h2 class="titulo" data-revelar>Dúvidas comuns</h2>
+      <div class="faq" data-revelar>
+        {area.perguntas.map((q) => (
+          <details class="faq__item">
+            <summary>{q.p}</summary>
+            <p>{q.r}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao--marinho" aria-labelledby="outras-titulo">
+    <div class="conteiner">
+      <h2 id="outras-titulo" class="titulo titulo--claro" data-revelar>Outras áreas de atuação</h2>
+      <ul class="areas-grade">
+        {outras.map((a) => (
+          <li class="area-card" data-revelar>
+            <a class="area-card__link" href={`/atuacao/${a.slug}/`}>
+              <Icone nome={a.icone} class="area-card__icone" />
+              <h3 class="area-card__titulo">{a.titulo}</h3>
+              <span class="area-card__mais">Saiba mais <Icone nome="seta" /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <Contato />
+</Base>

@@ -1,0 +1,98 @@
+---
+import Base from '../layouts/Base.astro';
+import Contato from '../components/Contato.astro';
+import Icone from '../components/Icone.astro';
+import { AREAS, CIDADES, SITE, type Cidade } from '../data/site';
+
+export function getStaticPaths() {
+  return CIDADES.map((c) => ({ params: { cidade: c.slug }, props: { cidade: c } }));
+}
+const { cidade } = Astro.props as { cidade: Cidade };
+const url = `${SITE.url}/advogados-em-${cidade.slug}/`;
+const outras = CIDADES.filter((c) => c.slug !== cidade.slug);
+const msg = encodeURIComponent(`Olá! Vim pelo site e gostaria de agendar um atendimento em ${cidade.nome}.`);
+const schema = [
+  {
+    '@context': 'https://schema.org', '@type': 'LegalService',
+    '@id': `${url}#unidade`,
+    name: `${SITE.nomeCompleto} em ${cidade.nome}`,
+    url, email: SITE.email, telephone: cidade.telefone.e164,
+    parentOrganization: { '@id': `${SITE.url}/#escritorio` },
+    areaServed: { '@type': 'State', name: cidade.estado },
+    address: { '@type': 'PostalAddress', addressLocality: cidade.nome, addressRegion: cidade.uf, addressCountry: 'BR', ...(cidade.endereco ? { streetAddress: cidade.endereco } : {}) },
+    geo: { '@type': 'GeoCoordinates', latitude: cidade.lat, longitude: cidade.lon },
+    knowsAbout: AREAS.map((a) => a.titulo),
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE.url}/` },
+      { '@type': 'ListItem', position: 2, name: `Advogados em ${cidade.nome}`, item: url },
+    ],
+  },
+];
+---
+<Base
+  titulo={`Advogados em ${cidade.nome} (${cidade.uf}) | Carneiro Cabral Advogados`}
+  descricao={`Escritório de advocacia em ${cidade.nome}, ${cidade.estado}. Direito Civil, Consumidor, Empresarial, Trabalhista, Agrário e Família. WhatsApp ${cidade.telefone.exibicao}.`}
+  schema={schema}
+>
+  <header class="capa">
+    <div class="conteiner">
+      <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / <a href="/#onde-estamos">Onde estamos</a> / {cidade.nome}</p></nav>
+      <h1 class="capa__titulo">Advogados em {cidade.nome}</h1>
+      <p class="capa__texto">{cidade.texto[0]}</p>
+      <a class="botao botao--ouro" href={`https://wa.me/${cidade.telefone.whatsapp}?text=${msg}`} target="_blank" rel="noopener">Conversar pelo WhatsApp</a>
+    </div>
+  </header>
+
+  <section class="secao secao--pedra">
+    <div class="conteiner bloco">
+      <div>
+        {cidade.texto.slice(1).map((t) => <p class="paragrafo paragrafo--destaque" data-revelar>{t}</p>)}
+        <h2 class="subtitulo subtitulo--espaco" data-revelar>Onde acompanhamos processos</h2>
+        <ul class="lista-servicos" data-revelar>
+          {cidade.tribunais.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+      <aside class="cartao-lateral" data-revelar>
+        <h2 class="cartao-lateral__titulo">{cidade.nome} ({cidade.uf})</h2>
+        {cidade.endereco ? <p>{cidade.endereco}</p> : <p>Atendimento presencial com hora marcada. Combine o horário pelo WhatsApp ou por e-mail.</p>}
+        <ul class="cartao-lateral__lista">
+          <li><a href={`tel:${cidade.telefone.e164}`}>Telefone e WhatsApp</a><span>{cidade.telefone.exibicao}</span></li>
+          <li><a href={`mailto:${SITE.email}`}>E-mail</a><span class="cartao-lateral__quebra">{SITE.email}</span></li>
+        </ul>
+        <a class="botao botao--ouro" href="#contato">Agendar atendimento</a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="secao secao--marinho" aria-labelledby="areas-cidade">
+    <div class="conteiner">
+      <h2 id="areas-cidade" class="titulo titulo--claro" data-revelar>Áreas de atuação em {cidade.nome}</h2>
+      <ul class="areas-grade">
+        {AREAS.map((a) => (
+          <li class="area-card" data-revelar>
+            <a class="area-card__link" href={`/atuacao/${a.slug}/`}>
+              <Icone nome={a.icone} class="area-card__icone" />
+              <h3 class="area-card__titulo">{a.titulo}</h3>
+              <p class="area-card__texto">{a.texto}</p>
+              <span class="area-card__mais">Saiba mais <Icone nome="seta" /></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="chamada">
+    <div class="conteiner chamada__grade">
+      <p class="chamada__texto">Também atendemos em {outras.map((o) => o.nome).join(' e ')}.</p>
+      <div class="recepcao__acoes">
+        {outras.map((o) => <a class="botao botao--contorno" href={`/advogados-em-${o.slug}/`}>Advogados em {o.nome}</a>)}
+      </div>
+    </div>
+  </section>
+
+  <Contato cidadePadrao={cidade.slug} />
+</Base>

@@ -1,0 +1,64 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+const atualizado = '10 de novembro de 2026';
+---
+<Base titulo="Política de privacidade | Carneiro Cabral Advogados" descricao="Como o Carneiro Cabral Advogados Associados trata os dados pessoais de quem visita o site e entra em contato com o escritório, conforme a LGPD.">
+  <header class="capa">
+    <div class="conteiner">
+      <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / Política de privacidade</p></nav>
+      <h1 class="capa__titulo">Política de privacidade</h1>
+      <p class="capa__texto">Última atualização: {atualizado}.</p>
+    </div>
+  </header>
+  <section class="secao secao--pedra">
+    <div class="conteiner conteiner--estreito texto-legal">
+      <p>Esta política explica como o {SITE.nomeCompleto}{SITE.cnpj && `, inscrito no CNPJ sob o nº ${SITE.cnpj},`} trata os dados pessoais de quem visita este site e de quem entra em contato com o escritório, em conformidade com a Lei nº 13.709/2018 (Lei Geral de Proteção de Dados Pessoais, LGPD).</p>
+
+      <h2>1. Quem é o responsável pelos dados</h2>
+      <p>O controlador dos dados é o {SITE.nomeCompleto}. Para qualquer assunto relacionado a dados pessoais, inclusive para falar com o encarregado pelo tratamento de dados, escreva para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+      <h2>2. Quais dados coletamos</h2>
+      <ul>
+        <li><strong>Dados que você nos envia:</strong> nome, telefone, cidade de atendimento e o resumo do caso, quando você usa o formulário, o WhatsApp, o telefone ou o e-mail.</li>
+        <li><strong>Dados de navegação:</strong> o servidor de hospedagem registra automaticamente dados técnicos de acesso, como endereço IP, data e hora e o navegador utilizado, por motivo de segurança e funcionamento do site.</li>
+      </ul>
+      <p>Este site não usa cookies de publicidade, não usa ferramentas de rastreamento de terceiros e não cria perfis de visitantes. As fontes e os arquivos do site são carregados do próprio domínio.</p>
+
+      <h2>3. Para que usamos os dados</h2>
+      <ul>
+        <li>Responder ao seu contato e agendar o atendimento.</li>
+        <li>Analisar o seu caso e, se houver contratação, prestar os serviços jurídicos.</li>
+        <li>Cumprir obrigações legais e regulatórias, inclusive as do Estatuto da Advocacia e do Código de Ética da OAB.</li>
+        <li>Garantir a segurança do site e prevenir fraudes.</li>
+      </ul>
+
+      <h2>4. Bases legais</h2>
+      <p>Tratamos dados com fundamento no art. 7º da LGPD, em especial: procedimentos preliminares e execução de contrato a pedido do titular (inciso V), cumprimento de obrigação legal ou regulatória (inciso II), exercício regular de direitos em processo judicial, administrativo ou arbitral (inciso VI) e legítimo interesse, para a segurança do site (inciso IX). Dados sensíveis, quando necessários ao caso, são tratados conforme o art. 11 da LGPD.</p>
+
+      <h2>5. Sigilo profissional</h2>
+      <p>Tudo o que você nos relata sobre o seu caso é protegido pelo sigilo profissional do advogado, previsto no Estatuto da Advocacia (Lei nº 8.906/1994) e no Código de Ética e Disciplina da OAB, além das garantias da LGPD.</p>
+
+      <h2>6. Com quem compartilhamos</h2>
+      <p>Não vendemos nem cedemos dados pessoais. O compartilhamento ocorre apenas quando necessário:</p>
+      <ul>
+        <li>com prestadores que viabilizam a nossa operação, como o provedor de e-mail e a hospedagem do site, que tratam os dados conforme as nossas instruções;</li>
+        <li>com o Poder Judiciário, órgãos públicos e a parte contrária, na medida exigida pelo próprio trabalho jurídico;</li>
+        <li>por determinação legal ou ordem de autoridade competente.</li>
+      </ul>
+      <p>Ao clicar em um botão de WhatsApp, você é direcionado ao aplicativo da Meta Platforms, que trata os dados conforme a sua própria política de privacidade. Alguns desses prestadores podem armazenar dados fora do Brasil, sempre com as salvaguardas previstas no art. 33 da LGPD.</p>
+
+      <h2>7. Por quanto tempo guardamos</h2>
+      <p>Mensagens de contato que não resultem em contratação são guardadas pelo tempo necessário para responder e, depois, por até 12 meses. Dados de clientes são mantidos durante a prestação dos serviços e pelos prazos legais de prescrição e de guarda de documentos profissionais.</p>
+
+      <h2>8. Seus direitos</h2>
+      <p>Você pode, a qualquer momento, pedir a confirmação de que tratamos seus dados, o acesso a eles, a correção de dados incompletos ou desatualizados, a anonimização, o bloqueio ou a eliminação de dados desnecessários, a portabilidade, informações sobre compartilhamento e a revisão de decisões automatizadas, nos termos do art. 18 da LGPD. Basta escrever para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. Você também pode apresentar reclamação à Autoridade Nacional de Proteção de Dados (ANPD).</p>
+
+      <h2>9. Segurança</h2>
+      <p>Adotamos medidas técnicas e administrativas para proteger os dados, como conexão criptografada (HTTPS) em todo o site e acesso às informações restrito às pessoas que trabalham no caso.</p>
+
+      <h2>10. Alterações</h2>
+      <p>Esta política pode ser atualizada. A data da última versão aparece no topo desta página.</p>
+    </div>
+  </section>
+</Base>

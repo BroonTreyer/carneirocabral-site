@@ -1,0 +1,125 @@
+---
+import '@fontsource/cinzel/500.css';
+import '@fontsource/cinzel/600.css';
+import '@fontsource-variable/cormorant-garamond';
+import '@fontsource-variable/cormorant-garamond/wght-italic.css';
+import '@fontsource-variable/mulish';
+import '../styles/global.css';
+import Cabecalho from '../components/Cabecalho.astro';
+import Rodape from '../components/Rodape.astro';
+import WhatsappFlutuante from '../components/WhatsappFlutuante.astro';
+import { SITE, CIDADES, TELEFONES } from '../data/site';
+
+interface Props {
+  titulo: string;
+  descricao: string;
+  schema?: object[];
+  semIndice?: boolean;
+}
+const { titulo, descricao, schema = [], semIndice = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, SITE.url).href;
+const og = new URL('/og.png', SITE.url).href;
+
+const organizacao = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  '@id': `${SITE.url}/#escritorio`,
+  name: SITE.nomeCompleto,
+  alternateName: SITE.nome,
+  url: SITE.url,
+  logo: `${SITE.url}/logo.png`,
+  image: og,
+  email: SITE.email,
+  telephone: TELEFONES.brasilia.e164,
+  priceRange: 'Sob consulta',
+  areaServed: CIDADES.map((c) => ({ '@type': 'City', name: `${c.nome} - ${c.uf}` })),
+  contactPoint: [
+    { '@type': 'ContactPoint', telephone: TELEFONES.brasilia.e164, contactType: 'customer service', areaServed: ['DF', 'GO'], availableLanguage: 'Portuguese' },
+    { '@type': 'ContactPoint', telephone: TELEFONES.cuiaba.e164, contactType: 'customer service', areaServed: 'MT', availableLanguage: 'Portuguese' },
+  ],
+  sameAs: [SITE.facebook, SITE.instagram].filter(Boolean),
+};
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descricao} />
+    <link rel="canonical" href={canonical} />
+    {semIndice && <meta name="robots" content="noindex" />}
+    <meta name="theme-color" content="#12203a" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="preload" href="/marmore.svg" as="image" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content={SITE.nomeCompleto} />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={og} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Monograma CC e o nome Carneiro Cabral Advogados Associados" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script is:inline>
+      // Ativa as animações de entrada só quando é seguro; se o JS falhar, o conteúdo aparece em 2,5 s.
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('js-anima');
+        setTimeout(function () { if (!window.__animaOk) document.documentElement.classList.remove('js-anima'); }, 2500);
+      }
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(organizacao)} />
+    {schema.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
+  </head>
+  <body>
+    <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+    <Cabecalho />
+    <main id="conteudo">
+      <slot />
+    </main>
+    <Rodape />
+    <WhatsappFlutuante />
+    <script>
+      import Lenis from 'lenis';
+      import { gsap } from 'gsap';
+      import { ScrollTrigger } from 'gsap/ScrollTrigger';
+      const calmo = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!calmo) {
+        gsap.registerPlugin(ScrollTrigger);
+        const lenis = new Lenis({ anchors: true });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((t) => lenis.raf(t * 1000));
+        gsap.ticker.lagSmoothing(0);
+        (window as any).__animaOk = true;
+        // Revela blocos marcados com data-revelar; filhos de [data-revelar-grupo] entram em sequência.
+        ScrollTrigger.batch('[data-revelar]', {
+          start: 'top 88%',
+          once: true,
+          onEnter: (els) => gsap.to(els, { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.09, overwrite: true }),
+        });
+        // linhas das rotas do mapa se desenham ao entrar na tela
+        document.querySelectorAll<SVGPathElement>('.mapa__rotas path').forEach((p, i) => {
+          const len = p.getTotalLength();
+          gsap.fromTo(p, { strokeDasharray: `${len}`, strokeDashoffset: len }, {
+            strokeDashoffset: 0, duration: 1.6, delay: i * 0.25, ease: 'power2.inOut',
+            scrollTrigger: { trigger: '.mapa', start: 'top 80%', once: true },
+            onComplete: () => { p.style.strokeDasharray = '3 6'; p.style.strokeDashoffset = '0'; },
+          });
+        });
+      }
+      // Cabeçalho ganha fundo sólido depois do topo
+      const cab = document.querySelector('.cabecalho');
+      const marcar = () => cab?.classList.toggle('cabecalho--solido', window.scrollY > 40);
+      marcar();
+      window.addEventListener('scroll', marcar, { passive: true });
+    </script>
+  </body>
+</html>

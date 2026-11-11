@@ -1,0 +1,47 @@
+---
+import Monograma from './Monograma.astro';
+import { SITE, CIDADES, TELEFONES, AREAS } from '../data/site';
+const ano = new Date().getFullYear();
+---
+<footer class="rodape">
+  <div class="rodape__grade conteiner">
+    <div class="rodape__marca">
+      <Monograma id="mono-rod" class="rodape__mono" titulo="" />
+      <p class="rodape__nome">Carneiro Cabral</p>
+      <p class="rodape__sub">Advogados Associados</p>
+    </div>
+    <div>
+      <h2 class="rodape__titulo">Contato</h2>
+      <ul class="rodape__lista">
+        <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+        <li><a href={`tel:${TELEFONES.brasilia.e164}`}>{TELEFONES.brasilia.exibicao}</a> (Brasília e Goiânia)</li>
+        <li><a href={`tel:${TELEFONES.cuiaba.e164}`}>{TELEFONES.cuiaba.exibicao}</a> (Cuiabá)</li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="rodape__titulo">Áreas de atuação</h2>
+      <ul class="rodape__lista">
+        {AREAS.map((a) => <li><a href={`/atuacao/${a.slug}/`}>{a.titulo}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="rodape__titulo">Cidades</h2>
+      <ul class="rodape__lista">
+        {CIDADES.map((c) => <li><a href={`/advogados-em-${c.slug}/`}>Advogados em {c.nome} ({c.uf})</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h2 class="rodape__titulo">Institucional</h2>
+      <ul class="rodape__lista">
+        <li><a href="/privacidade/">Política de privacidade</a></li>
+        <li><a href="/termos/">Termos de uso</a></li>
+        {SITE.facebook && <li><a href={SITE.facebook} rel="noopener" target="_blank">Facebook</a></li>}
+        {SITE.instagram && <li><a href={SITE.instagram} rel="noopener" target="_blank">Instagram</a></li>}
+      </ul>
+    </div>
+  </div>
+  <div class="rodape__base conteiner">
+    <p>© {ano} {SITE.nomeCompleto}.{SITE.oab && ` Sociedade inscrita na OAB sob o nº ${SITE.oab}.`}{SITE.cnpj && ` CNPJ ${SITE.cnpj}.`}</p>
+    <p>As informações deste site têm caráter informativo e não substituem a consulta a um advogado.</p>
+  </div>
+</footer>

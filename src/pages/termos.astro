@@ -1,0 +1,46 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../data/site';
+const atualizado = '10 de novembro de 2026';
+---
+<Base titulo="Termos de uso | Carneiro Cabral Advogados" descricao="Termos de uso do site do Carneiro Cabral Advogados Associados: finalidade informativa, ausência de promessa de resultado, contato e privacidade.">
+  <header class="capa">
+    <div class="conteiner">
+      <nav aria-label="Trilha"><p class="capa__trilha"><a href="/">Início</a> / Termos de uso</p></nav>
+      <h1 class="capa__titulo">Termos de uso</h1>
+      <p class="capa__texto">Última atualização: {atualizado}.</p>
+    </div>
+  </header>
+  <section class="secao secao--pedra">
+    <div class="conteiner conteiner--estreito texto-legal">
+      <p>Ao acessar o site carneirocabral.adv.br, você concorda com as condições abaixo. Se não concordar, recomendamos não utilizar o site.</p>
+
+      <h2>1. Finalidade do site</h2>
+      <p>Este site tem caráter exclusivamente informativo, em conformidade com o Código de Ética e Disciplina da OAB e com o Provimento nº 205/2021 do Conselho Federal da OAB. Ele apresenta o escritório, suas áreas de atuação e seus canais de contato.</p>
+
+      <h2>2. O conteúdo não é consultoria jurídica</h2>
+      <p>Os textos publicados aqui são gerais e não substituem a análise de um advogado sobre o seu caso concreto. Cada situação tem particularidades que podem mudar completamente a orientação adequada.</p>
+
+      <h2>3. Contato não cria relação de cliente</h2>
+      <p>O envio de mensagem pelo formulário, pelo WhatsApp ou por e-mail não estabelece, por si só, uma relação entre cliente e advogado. Essa relação só se forma após a análise do caso e a contratação formal dos serviços, com proposta de honorários por escrito. Até lá, evite enviar documentos originais ou informações que não sejam necessárias para o primeiro contato.</p>
+
+      <h2>4. Ausência de promessa de resultado</h2>
+      <p>A advocacia é uma atividade de meio. Nenhuma informação deste site deve ser entendida como garantia ou promessa de resultado em qualquer processo ou negociação.</p>
+
+      <h2>5. Propriedade intelectual</h2>
+      <p>O nome, o monograma, os textos e o projeto visual deste site pertencem ao {SITE.nomeCompleto}. Não é permitido reproduzi-los para fins comerciais sem autorização prévia por escrito. Citações curtas com indicação da fonte são bem-vindas.</p>
+
+      <h2>6. Links externos</h2>
+      <p>O site pode conter links para serviços de terceiros, como o WhatsApp e redes sociais. Não respondemos pelo conteúdo nem pelas práticas de privacidade desses serviços.</p>
+
+      <h2>7. Privacidade</h2>
+      <p>O tratamento de dados pessoais segue a nossa <a href="/privacidade/">política de privacidade</a>.</p>
+
+      <h2>8. Legislação e foro</h2>
+      <p>Estes termos são regidos pelas leis brasileiras. Fica eleito o foro do domicílio do usuário para a solução de eventuais controvérsias, conforme o Código de Defesa do Consumidor.</p>
+
+      <h2>9. Contato</h2>
+      <p>Dúvidas sobre estes termos podem ser enviadas para <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    </div>
+  </section>
+</Base>

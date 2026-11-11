@@ -1,0 +1,33 @@
+---
+// Monograma "CC" em dourado escovado, redesenhado a partir do logo do escritório (contornos vetoriais da Cinzel).
+import { C1, C2 } from '../data/glifo';
+interface Props { id?: string; class?: string; titulo?: string; brilho?: boolean }
+const { id = 'mono', class: cls = '', titulo = 'Monograma Carneiro Cabral', brilho = false } = Astro.props;
+const g = `${id}-ouro`;
+const s = `${id}-brilho`;
+---
+<svg class={`monograma ${cls}`} viewBox="8 10 166 178" role={titulo ? 'img' : undefined} aria-label={titulo || undefined} aria-hidden={titulo ? undefined : 'true'}>
+  <defs>
+    <linearGradient id={g} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8a6526" />
+      <stop offset=".38" stop-color="#dcbd78" />
+      <stop offset=".55" stop-color="#b8924a" />
+      <stop offset="1" stop-color="#7a5620" />
+    </linearGradient>
+    {brilho && (
+      <linearGradient id={s} x1="0" y1="0" x2="1" y2="0" gradientTransform="translate(-1 0)">
+        <stop offset=".35" stop-color="#fff" stop-opacity="0" />
+        <stop offset=".5" stop-color="#fff8e6" stop-opacity=".85" />
+        <stop offset=".65" stop-color="#fff" stop-opacity="0" />
+      </linearGradient>
+    )}
+  </defs>
+  <path d={C1} fill={`url(#${g})`} />
+  <path d={C2} fill={`url(#${g})`} />
+  {brilho && (
+    <g class="monograma__brilho">
+      <path d={C1} fill={`url(#${s})`} />
+      <path d={C2} fill={`url(#${s})`} />
+    </g>
+  )}
+</svg>

@@ -1,0 +1,47 @@
+---
+import Icone from './Icone.astro';
+import { TELEFONES } from '../data/site';
+const msg = encodeURIComponent('Olá! Vim pelo site e gostaria de agendar um atendimento.');
+const opcoes = [
+  { rotulo: 'Brasília e Goiânia', tel: TELEFONES.brasilia },
+  { rotulo: 'Cuiabá', tel: TELEFONES.cuiaba },
+];
+---
+<div class="zap" data-zap>
+  <div class="zap__painel" id="zap-painel" role="dialog" aria-label="Escolha o escritório para conversar pelo WhatsApp" hidden>
+    <p class="zap__titulo">Fale pelo WhatsApp</p>
+    <p class="zap__texto">Escolha o escritório mais próximo de você.</p>
+    <ul class="zap__lista">
+      {opcoes.map((o) => (
+        <li>
+          <a class="zap__opcao" href={`https://wa.me/${o.tel.whatsapp}?text=${msg}`} target="_blank" rel="noopener">
+            <span class="zap__cidade">{o.rotulo}</span>
+            <span class="zap__numero">{o.tel.exibicao}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <button class="zap__botao" type="button" aria-expanded="false" aria-controls="zap-painel">
+    <Icone nome="whatsapp" class="zap__icone" />
+    <span class="sr">Conversar pelo WhatsApp</span>
+  </button>
+</div>
+<script>
+  const raiz = document.querySelector('[data-zap]');
+  const botao = raiz?.querySelector<HTMLButtonElement>('.zap__botao');
+  const painel = raiz?.querySelector<HTMLElement>('.zap__painel');
+  const definir = (aberto: boolean) => {
+    if (!botao || !painel) return;
+    botao.setAttribute('aria-expanded', String(aberto));
+    painel.hidden = !aberto;
+    raiz?.classList.toggle('zap--aberto', aberto);
+  };
+  botao?.addEventListener('click', () => definir(botao.getAttribute('aria-expanded') !== 'true'));
+  document.addEventListener('click', (e) => { if (raiz && !raiz.contains(e.target as Node)) definir(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') definir(false); });
+  // aparece depois que a pessoa começa a rolar (na abertura os botões já estão no balcão)
+  const mostrar = () => raiz?.classList.toggle('zap--visivel', window.scrollY > 240 || !document.querySelector('.recepcao'));
+  mostrar();
+  window.addEventListener('scroll', mostrar, { passive: true });
+</script>
