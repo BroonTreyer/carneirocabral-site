@@ -1,6 +1,6 @@
 # Próximos passos — site carneirocabral.adv.br
 
-Situação em 11/11/2026 (madrugada). Este arquivo explica o que já está pronto, o que falta e como fazer cada etapa.
+Situação em 11/11/2026 (madrugada, atualizado após a publicação). Este arquivo explica o que já está pronto, o que falta e como fazer cada etapa.
 
 ---
 
@@ -19,11 +19,24 @@ Situação em 11/11/2026 (madrugada). Este arquivo explica o que já está pront
 
 **Páginas:** início, 6 áreas de atuação (Consumidor, Empresarial, Trabalho, Agrário e Agronegócio, Família e Sucessões, Previdenciário), 3 cidades (Goiânia, Cuiabá, Brasília), política de privacidade, termos de uso, créditos das imagens e página de erro 404.
 
-**O site ainda não abre pelo endereço** porque falta apontar o domínio (etapa 2).
+**O site está no ar em https://carneirocabral.adv.br** (DNS, HTTPS e Search Console feitos em 11/11/2026).
+
+### Resumo do que ainda falta
+
+| # | Tarefa | Quem |
+|---|---|---|
+| 1 | Clicar em **Criar Página** no Facebook (formulário já preenchido) e depois foto, capa e dados (etapa 4) | Escritório clica; o resto o Claude faz |
+| 2 | Bing Webmaster Tools: entrar com o Google e **Importar do Google Search Console** (etapa 3b) | Escritório |
+| 3 | Perfil da Empresa no Google de cada cidade (precisa de endereço) | Escritório |
+| 4 | Dados da etapa 5 (OAB, CNPJ, endereços, telefone 62) | Escritório |
 
 ---
 
-## 2. Apontar o domínio no registro.br (falta fazer)
+## 2. Apontar o domínio no registro.br (FEITO em 11/11/2026)
+
+Tudo abaixo já foi feito e está registrado aqui como referência. Na zona também foi adicionado um segundo TXT `google-site-verification=KMg8...` (verificação do Search Console na conta Google pessoal). **Não apague nenhum dos dois TXT de verificação.**
+
+Observação: o certificado HTTPS ficou mais de 1 hora sem sair; resolveu remover e adicionar de novo o domínio personalizado no GitHub Pages. Certificado Let’s Encrypt válido até 09/02/2027, renovado automaticamente.
 
 1. Entre em https://registro.br com a conta dona do domínio.
 2. Abra **carneirocabral.adv.br → DNS → Editar zona**.
@@ -69,7 +82,17 @@ Se o GitHub disser que o certificado ainda não está pronto, espere mais um pou
 5. **Um artigo novo por semana**, sobre dúvidas reais de clientes (pode pedir ao Claude: arquivo novo em `src/content/artigos/`).
 6. Links de outros sites (entrevistas, artigos em portais jurídicos, associações).
 
-## 3. Google Search Console (depois do domínio)
+## 3. Google Search Console (FEITO em 11/11/2026)
+
+Propriedade de domínio verificada, sitemap enviado e indexação pedida para: início, Goiânia, Cuiabá, Brasília, Consumidor, Previdenciário, central de artigos e o artigo de voo cancelado. Os primeiros dados aparecem no Search Console em 2 a 7 dias.
+
+### 3b. Bing Webmaster Tools (falta, 2 minutos)
+
+1. Entre em https://www.bing.com/webmasters e faça login com **Google** (a mesma conta do Search Console).
+2. Escolha **Importar do Google Search Console** e marque `carneirocabral.adv.br`.
+3. Pronto: o Bing passa a usar o mesmo sitemap. Isso cobre Bing, DuckDuckGo, Yahoo e a busca do ChatGPT.
+
+### Como foi feito (referência)
 
 1. Acesse https://search.google.com/search-console com a conta Google do escritório.
 2. O domínio já está verificado no Google (há um registro TXT `google-site-verification` no DNS). Se a propriedade não aparecer, adicione-a como **Domínio**: `carneirocabral.adv.br`.
@@ -80,7 +103,9 @@ Recomendado também: criar ou atualizar o **Perfil da Empresa no Google** (Googl
 
 ---
 
-## 4. Página no Facebook
+## 4. Página no Facebook (falta 1 clique)
+
+Em 11/11/2026 o formulário de criação ficou preenchido numa aba do Chrome (nome, categoria "Advogado(a) e escritório de advocacia" e bio). Falta clicar em **Criar Página**; o clique final é bloqueado para o Claude por ser publicação. Se a aba tiver sido fechada, refaça pelos passos abaixo. Depois de criada, peça ao Claude para colocar foto, capa, dados e o link no site.
 
 1. Entre no Facebook com a conta pessoal de quem vai administrar a página.
 2. Crie uma **Página** → categoria **Advogado e escritório de advocacia**.
